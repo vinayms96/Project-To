@@ -15,16 +15,16 @@
 	</test> <!-- Test -->
 	
 	
-	<test thread-count="5" name="FireFox">
+	<!-- <test thread-count="5" name="FireFox">
 	<parameter name="browser" value="Firefox"/>
-		<!-- <groups>
+		<groups>
 			<run>
 				<include name="exe.home"/>
 			</run>
-		</groups> -->
+		</groups>
 		<classes>
 			<class name="modules.openBrowser" />
 			<class name="testCases.testClass"/>
 		</classes>
-	</test> <!-- Test -->
+	</test> Test -->
 </suite> <!-- Suite -->
