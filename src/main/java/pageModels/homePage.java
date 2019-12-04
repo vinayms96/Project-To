@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import modules.actions;
+import modules.wait;
 
 public class homePage {
 	
@@ -17,7 +18,7 @@ public class homePage {
 	}
 	
 	public void hover_menu() throws Exception {
-		modules.wait.waitVisible(menu);
+		wait.waitVisible(menu);
 		actions.moveOver(menu);
 		Thread.sleep(4000);
 	}

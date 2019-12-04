@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite" verbose="2">
+
 	<test thread-count="5" name="Chrome">
-	<parameter name="browser" value="Chrome"/>
-		<!-- <groups>
-			<run>
-				<include name="exe.home"/>
-			</run>
-		</groups> -->
-		<classes>
-			<class name="modules.openBrowser" />
-			<class name="testCases.testClass"/>
-		</classes>
-	</test> <!-- Test -->
-	
-	
-	<!-- <test thread-count="5" name="FireFox">
+		<parameter name="browser" value="Chrome"/>
+			<!-- <groups>
+				<run>
+					<include name="exe.home"/>
+				</run>
+			</groups> -->
+			<classes>
+				<class name="modules.openBrowser" />
+				<class name="testCases.testClass"/>
+			</classes>
+		</test> <!-- Test -->
+		
+		<!-- <test thread-count="5" name="FireFox">
 	<parameter name="browser" value="Firefox"/>
 		<groups>
 			<run>
@@ -27,4 +27,5 @@
 			<class name="testCases.testClass"/>
 		</classes>
 	</test> Test -->
+		
 </suite> <!-- Suite -->
