@@ -14,7 +14,7 @@ import org.testng.annotations.Parameters;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class openBrowser implements auto_constant{
-	public static WebDriver driver = null;
+	private static WebDriver driver;
 	
   @BeforeTest(description = "Checking the browser and launching it")
   @Parameters({"browser"})
@@ -25,32 +25,39 @@ public class openBrowser implements auto_constant{
 		if(browser.equalsIgnoreCase("Chrome")) {
 			WebDriverManager.chromedriver().setup();
 			if(Property.getProperty("head").equalsIgnoreCase("false")) {
-				driver = new ChromeDriver();
+				setDriver(new ChromeDriver());
 			}else {
 				ChromeOptions options = new ChromeOptions();
 				options.addArguments("--headless");
-				driver = new ChromeDriver(options);
+				setDriver(new ChromeDriver(options));
 			}
 		}else if(browser.equalsIgnoreCase("Firefox")) {
-			driver = null;
 			WebDriverManager.firefoxdriver().setup();
 			if(Property.getProperty("head").equalsIgnoreCase("false")) {
-				driver = new FirefoxDriver();
+				setDriver(new FirefoxDriver());
 			}else {
 				FirefoxOptions options = new FirefoxOptions();
-				options.addArguments("headless");
-				driver = new FirefoxDriver(options);
+				options.addArguments("--headless");
+				setDriver(new FirefoxDriver(options));
 			}
 		}
-		driver.manage().window().maximize();
-		driver.get(url);
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		getDriver().manage().window().maximize();
+		getDriver().get(url);
+		getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
   }
 
   @AfterTest(description = "Terminating the browser instance and reports")
   public void afterTest() {
 	  extentReports.extent.flush();
-	  driver.close();
+	  getDriver().close();
   }
+
+public static WebDriver getDriver() {
+	return openBrowser.driver;
+}
+
+public static void setDriver(WebDriver driver) {
+	openBrowser.driver = driver;
+}
 
 }
