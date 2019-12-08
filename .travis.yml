@@ -2,7 +2,7 @@ language: java
 jdk: oraclejdk11
 os: linux
 sudo: false
-script: ./mvnw clean install
+script: "mvn cobertura:cobertura"
 cache:
   directories:
   - $HOME/.m2
