@@ -1,8 +1,11 @@
 language: java
-jdk: oraclejdk11
+jdk: oraclejdk9
 os: linux
+dist: trusty
 sudo: false
 script: "mvn cobertura:cobertura"
+services:
+- xvfb
 cache:
   directories:
   - $HOME/.m2
