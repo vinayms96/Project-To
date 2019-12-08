@@ -10,7 +10,7 @@ public class testClass extends openBrowser{
 	@Test(groups = {"exe.home"})
 	public void base() throws Exception {
 		
-		homePage hp = new homePage(driver);
+		homePage hp = new homePage(getDriver());
 		hp.hover_menu();
 		
 	}

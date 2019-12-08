@@ -1,5 +1,7 @@
 package modules;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -12,40 +14,50 @@ import org.testng.annotations.Parameters;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class openBrowser implements auto_constant{
-	public static WebDriver driver = null;
+	private static WebDriver driver;
 	
   @BeforeTest(description = "Checking the browser and launching it")
   @Parameters({"browser"})
   public void beforeTest(String browser) {
-	  WebDriverManager.chromedriver().setup();
-	  WebDriverManager.firefoxdriver().setup();
-	  
+	  	  
 	  extentReports.attRepo(browser);
 	  
 		if(browser.equalsIgnoreCase("Chrome")) {
+			WebDriverManager.chromedriver().setup();
 			if(Property.getProperty("head").equalsIgnoreCase("false")) {
-				driver = new ChromeDriver();
+				setDriver(new ChromeDriver());
 			}else {
 				ChromeOptions options = new ChromeOptions();
-				options.addArguments("headless");
-				driver = new ChromeDriver(options);
+				options.addArguments("--headless");
+				setDriver(new ChromeDriver(options));
 			}
 		}else if(browser.equalsIgnoreCase("Firefox")) {
+			WebDriverManager.firefoxdriver().setup();
 			if(Property.getProperty("head").equalsIgnoreCase("false")) {
-				driver = new FirefoxDriver();
+				setDriver(new FirefoxDriver());
 			}else {
 				FirefoxOptions options = new FirefoxOptions();
-				options.addArguments("headless");
-				driver = new FirefoxDriver(options);
+				options.addArguments("--headless");
+				setDriver(new FirefoxDriver(options));
 			}
 		}
-		driver.manage().window().maximize();
-		driver.get(url);
+		getDriver().manage().window().maximize();
+		getDriver().get(url);
+		getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
   }
 
   @AfterTest(description = "Terminating the browser instance and reports")
   public void afterTest() {
-	  driver.close();
+	  extentReports.extent.flush();
+	  getDriver().close();
   }
+
+public static WebDriver getDriver() {
+	return openBrowser.driver;
+}
+
+public static void setDriver(WebDriver driver) {
+	openBrowser.driver = driver;
+}
 
 }
