@@ -4,19 +4,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-public class actions {
+public class actions extends openBrowser{
 
-	Actions a;
+	static Actions a = new Actions(driver);
 	
 	public actions(WebDriver driver) {
 		a = new Actions(driver);
 	}
 	
-	public void moveOver(WebElement element) {
+	public static void moveOver(WebElement element) {
 		a.moveToElement(element).build().perform();
 	}
 	
-	public void moveClick(WebElement element) {
+	public static void moveClick(WebElement element) {
 		a.moveToElement(element).click().build().perform();
 	}
 

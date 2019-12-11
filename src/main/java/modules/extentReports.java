@@ -7,6 +7,9 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 public class extentReports implements auto_constant{
 	static ExtentReports extent = new ExtentReports();	
 	
+	/*
+	 * Generates the Report file in the destination and attach the report in the html file
+	 */
 	public static void attRepo(String browser) {
 		if(Property.getProperty("extent").equalsIgnoreCase("on")) {
 			ExtentHtmlReporter reporter = new ExtentHtmlReporter(extentPath+browser+"/"+dateFunc.getDate()+"test.html");
@@ -14,6 +17,9 @@ public class extentReports implements auto_constant{
 		}
 	}
 	
+	/*
+	 * Creates a new Extent test and returns the extentTest object
+	 */
 	public static ExtentTest exTest(String pageName,String testName) {
 	
 		if(Property.getProperty("extent").equalsIgnoreCase("on")) {
@@ -23,12 +29,12 @@ public class extentReports implements auto_constant{
 		}
 	}
 	
-	public static void xclude(String actual,String expected,ExtentTest exTest) {
+	public static boolean xclude(ExtentTest exTest) {
 		if(exTest==null) {
 			System.out.println("Reports are Off");
-		}else {
-			exTest.info("Test Pass");
+			return false;
 		}
+		return true;
 	}
 	
 }
