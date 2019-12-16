@@ -1,18 +1,25 @@
 package modules;
 
+import com.aventstack.extentreports.AnalysisStrategy;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 
-public class extentReports implements auto_constant{
-	static ExtentReports extent = new ExtentReports();	
+public class extentReports extends openBrowser implements auto_constant{
+	static ExtentReports extent = new ExtentReports();
 	
 	/*
 	 * Generates the Report file in the destination and attach the report in the html file
 	 */
-	public static void attRepo(String browser) {
+	public static void attRepo() {
 		if(Property.getProperty("extent").equalsIgnoreCase("on")) {
-			ExtentHtmlReporter reporter = new ExtentHtmlReporter(extentPath+browser+"/"+dateFunc.getDate()+"test.html");
+			extent.setSystemInfo("User", "Vinay M S");
+			extent.setSystemInfo("Operating System", "Ubuntu Linux");
+			extent.setSystemInfo("Java version", "Jdk 1.8.0");
+			extent.setAnalysisStrategy(AnalysisStrategy.TEST);
+			extent.setSystemInfo("Browsers", "Chrome & Firefox");
+			ExtentHtmlReporter reporter = new ExtentHtmlReporter(extentPath+"/Report "+dateFunc.getReportDate()+".html");
+			reporter.config().setCSS(".r-img { width: 30%; }");
 			extent.attachReporter(reporter);
 		}
 	}
@@ -20,18 +27,25 @@ public class extentReports implements auto_constant{
 	/*
 	 * Creates a new Extent test and returns the extentTest object
 	 */
-	public static ExtentTest exTest(String pageName,String testName) {
+	public static ExtentTest extentTest() {
 	
 		if(Property.getProperty("extent").equalsIgnoreCase("on")) {
-			return extent.createTest(testName);
+			StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+			ExtentTest child = parentTest.get().createNode(stackTrace[2].getMethodName());
+			return child;
 		}else {
 			return null;
 		}
+		
 	}
 	
-	public static boolean xclude(ExtentTest exTest) {
-		if(exTest==null) {
-			System.out.println("Reports are Off");
+	/*
+	 * Verifying if the Extent Reports are Turned off or On
+	 * If On returns true to Assertion class else returns false
+	 */
+	public static boolean xclude(ExtentTest extTest) {
+		if(extTest==null) {
+//			System.out.println("Reports are Off");
 			return false;
 		}
 		return true;

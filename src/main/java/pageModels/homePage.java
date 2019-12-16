@@ -8,21 +8,23 @@ import org.openqa.selenium.support.PageFactory;
 import com.aventstack.extentreports.ExtentTest;
 
 import modules.actions;
+import modules.extentReports;
 
 public class homePage {
-	
+	ExtentTest extTest;
+
 	@FindBy(xpath = "//nav[@class='navigation']/ul/li[2]")
 	private WebElement menu;
 	@FindBy(xpath = "//ul[@class=\"header links\"]/li[2]/a")
 	private WebElement login;
-	
+
 	public homePage(WebDriver driver) {
 		PageFactory.initElements(driver, this);
 	}
-	
-	public void loginLink(ExtentTest extTest) throws Exception {
+
+	public void loginLink() throws Exception {
 		actions.moveClick(login);
-		extTest.info("SignIn Link is clicked");
+		extentReports.extentTest().info("SignIn Link is clicked");
 	}
 
 }
