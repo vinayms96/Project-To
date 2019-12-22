@@ -3,9 +3,7 @@ jdk: oraclejdk9
 os: linux
 dist: trusty
 sudo: false
-script: 
--mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
--mvn test -B
+script: "mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V && mvn test -B"
 services:
 - xvfb
 cache:

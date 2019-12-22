@@ -3,32 +3,39 @@ package modules;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
 
-public class extentReports implements auto_constant{
-	static ExtentReports extent = new ExtentReports();	
+public class extentReports implements auto_constant {
+	public static ExtentReports extent = new ExtentReports();
+	public static ExtentHtmlReporter reporter;
+	public static ExtentTest extTest;
+
+	/*
+	 * Generates the Report file in the destination and attach the report in the
+	 * html file
+	 */
 	
-	public static void attRepo(String browser) {
-		if(Property.getProperty("extent").equalsIgnoreCase("on")) {
-			ExtentHtmlReporter reporter = new ExtentHtmlReporter(extentPath+browser+"/"+dateFunc.getDate()+"test.html");
-			extent.attachReporter(reporter);
-		}
+	public static void attachReport() {
+		extent.setSystemInfo("User", "Vinay M S");
+		extent.setSystemInfo("Operating System", "Ubuntu Linux");
+		extent.setSystemInfo("Java version", "Jdk 1.8.0");
+		extent.setSystemInfo("Browsers", "Chrome & Firefox");
+		
+		reporter = new ExtentHtmlReporter(extentPath + "/Report " + dateFunc.getReportDate() + ".html");
+		reporter.config().setCSS(".r-img { width: 30%; }");
+		reporter.config().setDocumentTitle("Automation Test Report");
+		reporter.config().setReportName("TO Test Report");
+		reporter.config().setTheme(Theme.DARK);
+		
+		extent.attachReporter(reporter);
 	}
-	
-	public static ExtentTest exTest(String pageName,String testName) {
-	
-		if(Property.getProperty("extent").equalsIgnoreCase("on")) {
-			return extent.createTest(testName);
-		}else {
-			return null;
-		}
+
+	/*
+	 * Creates a new Extent test and returns the extentTest object
+	 */
+	public static ExtentTest extentTest(String testName) {
+		extTest = extent.createTest(testName);
+		return extTest;
 	}
-	
-	public static void xclude(String actual,String expected,ExtentTest exTest) {
-		if(exTest==null) {
-			System.out.println("Reports are Off");
-		}else {
-			exTest.info("Test Pass");
-		}
-	}
-	
+
 }

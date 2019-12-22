@@ -11,7 +11,7 @@ public class excelUtils implements auto_constant{
 	static XSSFWorkbook w;
 	static XSSFSheet sheet;
 
-	public static void getData(String sheetName,int row, int cell) {
+	public static String getData(String sheetName,int row, int cell) {
 		try {
 			fi = new FileInputStream(new File(excelPath));
 			w = new XSSFWorkbook(fi);
@@ -20,7 +20,7 @@ public class excelUtils implements auto_constant{
 		}
 		sheet = w.getSheet(sheetName);
 		String data = sheet.getRow(row).getCell(cell).getStringCellValue();
-		System.out.println(data);
+		return data;
 	}
 		
 }
