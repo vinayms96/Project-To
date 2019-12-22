@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Suite" verbose="2">
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite" verbose="2" parallel="none">
+	<listeners>
+		<listener class-name="modules.TestListners"></listener>
+	</listeners>
 
-	<!-- <test thread-count="5" name="Chrome">
-		<parameter name="browser" value="Chrome" />
-		<groups> <run> <include name="exe.home"/> </run> </groups>
+	<test thread-count="5" name="Test">
+		<parameter name="browser" value="Chrome"></parameter>
 		<classes>
-			<class name="modules.openBrowser" />
-			<class name="testCases.testClass" />
-		</classes>
-	</test> --> <!-- Test -->
-
-	<test thread-count="5" name="FireFox">
-		<parameter name="browser" value="Firefox" />
-		<!-- <groups> <run> <include name="exe.home"/> </run> </groups> -->
-		<classes>
-			<class name="modules.openBrowser" />
-			<class name="testCases.testClass" />
+			<class name="modules.projectSetup" />
+			<class name="testCases.loginFeature">
+				<!-- <methods> <include name="base"></include> <include name="base2"></include> 
+					</methods> -->
+			</class>
 		</classes>
 	</test> <!-- Test -->
 
+	<test thread-count="5" name="Test2">
+		<parameter name="browser" value="Firefox"></parameter>
+		<classes>
+			<class name="modules.projectSetup" />
+			<class name="testCases.loginFeature">
+				<!-- <methods> <include name="base"></include> <include name="base2"></include> 
+					</methods> -->
+			</class>
+		</classes>
+	</test>
 </suite> <!-- Suite -->

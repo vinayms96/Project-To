@@ -8,10 +8,11 @@ import org.openqa.selenium.support.PageFactory;
 import com.aventstack.extentreports.ExtentTest;
 
 import modules.actions;
-import modules.extentReports;
+import modules.projectSetup;
 
-public class homePage {
-	ExtentTest extTest;
+public class homePage extends projectSetup{
+	WebDriver driver;
+	ExtentTest childTest;
 
 	@FindBy(xpath = "//nav[@class='navigation']/ul/li[2]")
 	private WebElement menu;
@@ -20,11 +21,12 @@ public class homePage {
 
 	public homePage(WebDriver driver) {
 		PageFactory.initElements(driver, this);
+		this.driver = driver;
 	}
 
-	public void loginLink() throws Exception {
-		actions.moveClick(login);
-		extentReports.extentTest().info("SignIn Link is clicked");
+	public void loginLink() throws Exception {	
+		System.out.println(driver);
+		actions.moveClick(driver,login);
 	}
 
 }

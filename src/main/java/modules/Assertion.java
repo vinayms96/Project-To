@@ -3,100 +3,85 @@ package modules;
 
 import java.io.IOException;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.IReporter;
 
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 
-public class Assertion implements IReporter {
+public class Assertion {
 
 	/*
 	 * Asserting the two Strings The result is recorded in Report if reports are
 	 * enabled
 	 */
-	public static void assertEquals(String actual, String expected, ExtentTest extTest, String passMsg,
+	public static void assertEquals(WebDriver driver, String actual, String expected, ExtentTest extTest, String passMsg,
 			String failMsg) {
 		try {
 			Assert.assertEquals(actual, expected);
-			if (extentReports.xclude(extTest)) {
-				extTest.log(Status.PASS, passMsg);
-			}
+			extTest.log(Status.PASS, passMsg);
 			System.out.println(passMsg);
-
+			
 			/*
 			 * Handling Assertion Error
 			 */
 		} catch (AssertionError error) {
-			if (extentReports.xclude(extTest)) {
-				/*
-				 * Adding the Screen capture to the ExtentReports and handling it if file not
-				 * found
-				 */
-				try {
-					extTest.fail(failMsg,
-							MediaEntityBuilder.createScreenCaptureFromPath(screenshot.shot(failMsg)).build());
-				} catch (IOException e) {
-					System.out.println("Could NOT find the Screenshot");
-				}
+			/*
+			 * Adding the Screen capture to the ExtentReports and handling it if file not
+			 * found
+			 */
+			try {
+				extTest.fail(failMsg, MediaEntityBuilder.createScreenCaptureFromPath(screenshot.shot(driver, failMsg)).build());
+			} catch (IOException e) {
+				System.out.println("Could NOT find the Screenshot");
 			}
 			System.out.println(failMsg);
 		}
 	}
 
-	public static void assertTrue(boolean condition, ExtentTest extTest, String passMsg, String failMsg) {
+	public static void assertTrue(WebDriver driver, boolean condition, ExtentTest extTest, String passMsg, String failMsg) {
 		try {
 			Assert.assertTrue(condition, failMsg);
-			if (extentReports.xclude(extTest)) {
-				extTest.log(Status.PASS, passMsg);
-			}
+			extTest.log(Status.PASS, passMsg);
 			System.out.println(passMsg);
 
 			/*
 			 * Handling Assertion Error
 			 */
 		} catch (AssertionError error) {
-			if (extentReports.xclude(extTest)) {
-				/*
-				 * Adding the Screen capture to the ExtentReports and handling it if file not
-				 * found
-				 */
-				try {
-					extTest.fail(failMsg,
-							MediaEntityBuilder.createScreenCaptureFromPath(screenshot.shot(failMsg)).build());
-				} catch (IOException e) {
-					System.out.println("Could NOT find the Screenshot");
-				}
+			/*
+			 * Adding the Screen capture to the ExtentReports and handling it if file not
+			 * found
+			 */
+			try {
+				extTest.fail(failMsg, MediaEntityBuilder.createScreenCaptureFromPath(screenshot.shot(driver, failMsg)).build());
+			} catch (IOException e) {
+				System.out.println("Could NOT find the Screenshot");
 			}
 			System.out.println(failMsg);
 		}
 	}
 
-	public static void assertContains(String actual, String expected, ExtentTest extTest, String passMsg,
+	public static void assertContains(WebDriver driver, String actual, String expected, ExtentTest extTest, String passMsg,
 			String failMsg) {
 		try {
 			Assert.assertTrue(actual.contains(expected));
-			if (extentReports.xclude(extTest)) {
-				extTest.log(Status.PASS, passMsg);
-			}
+			extTest.log(Status.PASS, passMsg);
 			System.out.println(passMsg);
 
 			/*
 			 * Handling Assertion Error
 			 */
 		} catch (AssertionError error) {
-			if (extentReports.xclude(extTest)) {
-				/*
-				 * Adding the Screen capture to the ExtentReports and handling it if file not
-				 * found
-				 */
-				try {
-					extTest.fail(failMsg,
-							MediaEntityBuilder.createScreenCaptureFromPath(screenshot.shot(failMsg)).build());
-				} catch (IOException e) {
-					System.out.println("Could NOT find the Screenshot");
-				}
+			/*
+			 * Adding the Screen capture to the ExtentReports and handling it if file not
+			 * found
+			 */
+			try {
+				extTest.fail(failMsg, MediaEntityBuilder.createScreenCaptureFromPath(screenshot.shot(driver, failMsg)).build());
+			} catch (IOException e) {
+				System.out.println("Could NOT find the Screenshot");
 			}
 			System.out.println(failMsg);
 		}
