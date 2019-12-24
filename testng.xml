@@ -5,25 +5,21 @@
 		<listener class-name="modules.TestListners"></listener>
 	</listeners>
 
-	<test thread-count="5" name="Test">
+	<test thread-count="5" name="Chrome">
 		<parameter name="browser" value="Chrome"></parameter>
 		<classes>
 			<class name="modules.projectSetup" />
-			<class name="testCases.loginFeature">
-				<!-- <methods> <include name="base"></include> <include name="base2"></include> 
-					</methods> -->
-			</class>
+			<class name="testCases.loginFeature" />
+			<class name="testCases.verifyLinks" />
 		</classes>
 	</test> <!-- Test -->
 
-	<test thread-count="5" name="Test2">
+	<test thread-count="5" name="Firefox">
 		<parameter name="browser" value="Firefox"></parameter>
 		<classes>
 			<class name="modules.projectSetup" />
-			<class name="testCases.loginFeature">
-				<!-- <methods> <include name="base"></include> <include name="base2"></include> 
-					</methods> -->
-			</class>
+			<class name="testCases.loginFeature" />
+			<class name="testCases.verifyLinks" />
 		</classes>
-	</test>
+	</test> <!-- Test -->
 </suite> <!-- Suite -->
