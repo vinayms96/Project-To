@@ -10,13 +10,13 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 
-public class Assertion {
+public class Assertion extends projectSetup{
 
 	/*
 	 * Asserting the two Strings The result is recorded in Report if reports are
 	 * enabled
 	 */
-	public static void assertEquals(WebDriver driver, String actual, String expected, ExtentTest extTest, String passMsg,
+	public static void assertEquals(String actual, String expected, ExtentTest extTest, String passMsg,
 			String failMsg) {
 		try {
 			Assert.assertEquals(actual, expected);
@@ -32,7 +32,7 @@ public class Assertion {
 			 * found
 			 */
 			try {
-				extTest.fail(failMsg, MediaEntityBuilder.createScreenCaptureFromPath(screenshot.shot(driver, failMsg)).build());
+				extTest.fail(failMsg, MediaEntityBuilder.createScreenCaptureFromPath(screenshot.shot(failMsg)).build());
 			} catch (IOException e) {
 				System.out.println("Could NOT find the Screenshot");
 			}
@@ -55,7 +55,7 @@ public class Assertion {
 			 * found
 			 */
 			try {
-				extTest.fail(failMsg, MediaEntityBuilder.createScreenCaptureFromPath(screenshot.shot(driver, failMsg)).build());
+				extTest.fail(failMsg, MediaEntityBuilder.createScreenCaptureFromPath(screenshot.shot(failMsg)).build());
 			} catch (IOException e) {
 				System.out.println("Could NOT find the Screenshot");
 			}
@@ -79,7 +79,7 @@ public class Assertion {
 			 * found
 			 */
 			try {
-				extTest.fail(failMsg, MediaEntityBuilder.createScreenCaptureFromPath(screenshot.shot(driver, failMsg)).build());
+				extTest.fail(failMsg, MediaEntityBuilder.createScreenCaptureFromPath(screenshot.shot(failMsg)).build());
 			} catch (IOException e) {
 				System.out.println("Could NOT find the Screenshot");
 			}

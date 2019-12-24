@@ -19,13 +19,14 @@ import com.aventstack.extentreports.Status;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class projectSetup implements auto_constant {
-	public WebDriver driver;
+	public static WebDriver driver;
 	public static String extBrowser;
+
 	@BeforeSuite
 	public void setEnviron() {
 		extentReports.attachReport();
 	}
-	
+
 	@BeforeClass(description = "Checking the browser and launching it")
 	@Parameters({ "browser" })
 	public void openBrowser(String browser) {
@@ -39,20 +40,20 @@ public class projectSetup implements auto_constant {
 		if (browser.equalsIgnoreCase("Chrome")) {
 			WebDriverManager.chromedriver().arch64().setup();
 			if (Property.getProperty("head").equalsIgnoreCase("false")) {
-				setDriver(new ChromeDriver());
+				driver = new ChromeDriver();
 			} else {
 				ChromeOptions options = new ChromeOptions();
 				options.addArguments("--headless");
-				setDriver(new ChromeDriver(options));
+				driver = new ChromeDriver(options);
 			}
 		} else if (browser.equalsIgnoreCase("Firefox")) {
 			WebDriverManager.firefoxdriver().arch64().setup();
 			if (Property.getProperty("head").equalsIgnoreCase("false")) {
-				setDriver(new FirefoxDriver());
+				driver = new FirefoxDriver();
 			} else {
 				FirefoxOptions options = new FirefoxOptions();
 				options.addArguments("--headless");
-				setDriver(new FirefoxDriver(options));
+				driver = new FirefoxDriver(options);
 			}
 		}
 		driver.manage().window().maximize();
@@ -60,27 +61,25 @@ public class projectSetup implements auto_constant {
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		System.out.println(driver);
 	}
-	
+
 	@AfterMethod
 	public void tearDown(ITestResult result) {
 		if (result.getStatus() == ITestResult.FAILURE) {
-			extentReports.extTest.log(Status.FAIL,
-					"Test Case Failed is " + result.getName() + "\n" + result.getThrowable());
+			extentReports.extTest.log(Status.FAIL, result.getThrowable());
 		} else if (result.getStatus() == ITestResult.SKIP) {
 			extentReports.extTest.log(Status.SKIP, "Test Case Skipped is " + result.getName());
 		}
-		extentReports.extent.flush();
+		
+		// Extent reports will be flushed only if extent reports are On
+		// So Reports will be generated only if extent is flushed
+		if (Property.getProperty("extent").equalsIgnoreCase("On")) {
+			extentReports.extent.flush();
+		}
 	}
-	
+
 	@AfterClass
 	public void closeBrowser() {
-//		extentReports.reporter.stop();
-//		extentReports.extent.flush();
 		driver.close();
-	}
-	
-	public void setDriver(WebDriver driver) {
-		this.driver = driver;
 	}
 
 }
