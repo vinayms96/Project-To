@@ -5,8 +5,14 @@ import java.util.Date;
 
 public class dateFunc {
 	
-	public static String getDate() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("E d/M hh:mm");
+	public static String getReportDate() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("E dd-MM hh:mm:ssa");
+		Date date = new Date();
+		return dateFormat.format(date);
+	}
+	
+	public static String getShotDate() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("E dd-MM hh:mm a");
 		Date date = new Date();
 		return dateFormat.format(date);
 	}
