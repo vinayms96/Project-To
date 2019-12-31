@@ -3,7 +3,6 @@ package modules;
 
 import java.io.IOException;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 import com.aventstack.extentreports.ExtentTest;
@@ -16,8 +15,7 @@ public class Assertion extends projectSetup{
 	 * Asserting the two Strings The result is recorded in Report if reports are
 	 * enabled
 	 */
-	public static void assertEquals(String actual, String expected, ExtentTest extTest, String passMsg,
-			String failMsg) {
+	public static void assertEquals(String actual, String expected, ExtentTest extTest, String passMsg) {
 		try {
 			Assert.assertEquals(actual, expected);
 			extTest.log(Status.PASS, passMsg);
@@ -32,17 +30,17 @@ public class Assertion extends projectSetup{
 			 * found
 			 */
 			try {
-				extTest.fail(failMsg, MediaEntityBuilder.createScreenCaptureFromPath(screenshot.shot(failMsg)).build());
+				extTest.fail(error.getCause(), MediaEntityBuilder.createScreenCaptureFromPath(screenshot.shot(error.getMessage())).build());
 			} catch (IOException e) {
 				System.out.println("Could NOT find the Screenshot");
 			}
-			System.out.println(failMsg);
+			System.out.println(error.getCause());
 		}
 	}
 
-	public static void assertTrue(WebDriver driver, boolean condition, ExtentTest extTest, String passMsg, String failMsg) {
+	public static void assertTrue(boolean condition, ExtentTest extTest, String passMsg) {
 		try {
-			Assert.assertTrue(condition, failMsg);
+			Assert.assertTrue(condition);
 			extTest.log(Status.PASS, passMsg);
 			System.out.println(passMsg);
 
@@ -55,16 +53,15 @@ public class Assertion extends projectSetup{
 			 * found
 			 */
 			try {
-				extTest.fail(failMsg, MediaEntityBuilder.createScreenCaptureFromPath(screenshot.shot(failMsg)).build());
+				extTest.fail(error.getCause(), MediaEntityBuilder.createScreenCaptureFromPath(screenshot.shot(error.getMessage())).build());
 			} catch (IOException e) {
 				System.out.println("Could NOT find the Screenshot");
 			}
-			System.out.println(failMsg);
+			System.out.println(error.getCause());
 		}
 	}
 
-	public static void assertContains(WebDriver driver, String actual, String expected, ExtentTest extTest, String passMsg,
-			String failMsg) {
+	public static void assertContains(String actual, String expected, ExtentTest extTest, String passMsg) {
 		try {
 			Assert.assertTrue(actual.contains(expected));
 			extTest.log(Status.PASS, passMsg);
@@ -79,11 +76,11 @@ public class Assertion extends projectSetup{
 			 * found
 			 */
 			try {
-				extTest.fail(failMsg, MediaEntityBuilder.createScreenCaptureFromPath(screenshot.shot(failMsg)).build());
+				extTest.fail(error.getCause(), MediaEntityBuilder.createScreenCaptureFromPath(screenshot.shot(error.getMessage())).build());
 			} catch (IOException e) {
 				System.out.println("Could NOT find the Screenshot");
 			}
-			System.out.println(failMsg);
+			System.out.println(error.getCause());
 		}
 	}
 

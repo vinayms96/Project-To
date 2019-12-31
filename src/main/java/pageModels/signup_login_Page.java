@@ -14,7 +14,6 @@ import modules.projectSetup;
 
 public class signup_login_Page extends projectSetup {
 	int count;
-//	WebDriver driver;
 
 	/*
 	 * Login page Elements
@@ -59,8 +58,7 @@ public class signup_login_Page extends projectSetup {
 			// Comparing Error message
 			Assertion.assertEquals(emptyLogErr.getAttribute("innerHTML"),
 					"A login and a password are required.", extentReports.childTest,
-					"Login and Password error message is displayed",
-					"Login and Password error message is not displayed");
+					"Login and Password error message is displayed");
 			count++;
 		} catch (Exception e) {
 			System.out.println("Could Not find the specified Element");
@@ -87,13 +85,11 @@ public class signup_login_Page extends projectSetup {
 			// Comparing Error Messages
 			Assertion.assertEquals(email_error.getText(),
 					excelUtils.getData(Property.getProperty("sheetName"), 2, 6), extentReports.childTest,
-					"Proper error msg for Email Field is displayed",
-					"Proper error msg for Email Field is NOT displayed");
+					"Proper error msg for Email Field is displayed");
 
 			Assertion.assertEquals(pass_error.getText(),
 					excelUtils.getData(Property.getProperty("sheetName"), 2, 6), extentReports.childTest,
-					"Proper error msg for Password Field is displayed",
-					"Proper error msg for Password Field is NOT displayed");
+					"Proper error msg for Password Field is displayed");
 		} catch (Exception e) {
 			System.out.println("Could Not find the specified Element");
 			extentReports.childTest.fail("Could Not find the specified Element");
@@ -128,8 +124,8 @@ public class signup_login_Page extends projectSetup {
 		String[] acName = userName.getText().split(",");
 
 		// Verifying if the User name is properly displayed
-		Assertion.assertContains(driver, acName[1].trim().substring(0, acName[1].trim().length() - 1), fullName,
-				extentReports.childTest, "Logged in Successfully", "User could NOT login");
+		Assertion.assertContains(acName[1].trim().substring(0, acName[1].trim().length() - 1), fullName,
+				extentReports.childTest, "Logged in Successfully");
 	}
 
 }
