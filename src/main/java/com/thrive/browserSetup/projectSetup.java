@@ -1,4 +1,4 @@
-package modules;
+package com.thrive.browserSetup;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +17,9 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 
 import com.aventstack.extentreports.Status;
+import com.thrive.modules.Property;
+import com.thrive.modules.auto_constant;
+import com.thrive.reportSetup.extentReports;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -107,6 +110,10 @@ public class projectSetup implements auto_constant {
 	@AfterClass(description = "Close the WebDriver instance",alwaysRun = true)
 	public void closeBrowser() {
 		driver.close();
+	}
+	
+	public static WebDriver getDriver() {
+		return driver;
 	}
 
 }

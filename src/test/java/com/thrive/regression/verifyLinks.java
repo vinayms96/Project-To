@@ -1,10 +1,10 @@
-package testCases;
+package com.thrive.regression;
 
 import org.testng.annotations.Test;
 
-import modules.extentReports;
-import modules.projectSetup;
-import pageModels.homePage;
+import com.thrive.browserSetup.projectSetup;
+import com.thrive.pageModels.homePage;
+import com.thrive.reportSetup.extentReports;
 
 public class verifyLinks extends projectSetup {
 

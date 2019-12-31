@@ -1,4 +1,4 @@
-package modules;
+package com.thrive.modules;
 
 public interface auto_constant {
 

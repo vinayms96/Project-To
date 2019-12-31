@@ -1,8 +1,10 @@
-package modules;
+package com.thrive.listeners;
 
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+
+import com.thrive.reportSetup.extentReports;
 
 public class TestListners implements ITestListener{
 

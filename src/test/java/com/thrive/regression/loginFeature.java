@@ -1,11 +1,11 @@
-package testCases;
+package com.thrive.regression;
 
 import org.testng.annotations.Test;
 
-import modules.extentReports;
-import modules.projectSetup;
-import pageModels.homePage;
-import pageModels.signup_login_Page;
+import com.thrive.browserSetup.projectSetup;
+import com.thrive.pageModels.homePage;
+import com.thrive.pageModels.signup_login_Page;
+import com.thrive.reportSetup.extentReports;
 
 public class loginFeature extends projectSetup {
 
@@ -20,14 +20,15 @@ public class loginFeature extends projectSetup {
 
 		// Checking the error msg box
 		hp.clickLoginLink();
-		slp.errorMsgBox();
+//		slp.errorMsgBox();
 		
 		// Checks the Email and Password field errors
-		slp.textFieldError();
+//		slp.textFieldError();
 
 		// Verifies with valid login credentials
-		slp.loginValidCred();
-
+//		slp.loginValidCred();
+		slp.everyFieldErrorCheck();
+		
 	}
 
 }

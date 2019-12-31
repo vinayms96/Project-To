@@ -1,5 +1,5 @@
 
-package modules;
+package com.thrive.modules;
 
 import java.io.IOException;
 
@@ -8,6 +8,8 @@ import org.testng.Assert;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
+import com.thrive.browserSetup.projectSetup;
+import com.thrive.reportSetup.screenshot;
 
 public class Assertion extends projectSetup{
 

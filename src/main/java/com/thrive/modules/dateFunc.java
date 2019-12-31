@@ -1,4 +1,4 @@
-package modules;
+package com.thrive.modules;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

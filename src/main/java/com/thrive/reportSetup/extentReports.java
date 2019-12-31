@@ -1,9 +1,12 @@
-package modules;
+package com.thrive.reportSetup;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
+import com.thrive.browserSetup.projectSetup;
+import com.thrive.modules.auto_constant;
+import com.thrive.modules.dateFunc;
 
 public class extentReports extends projectSetup implements auto_constant {
 	public static ExtentReports extent = new ExtentReports();

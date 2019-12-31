@@ -1,4 +1,4 @@
-package pageModels;
+package com.thrive.pageModels;
 
 import java.util.Iterator;
 import java.util.List;
@@ -9,10 +9,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import modules.Assertion;
-import modules.actions;
-import modules.extentReports;
-import modules.projectSetup;
+import com.thrive.browserSetup.projectSetup;
+import com.thrive.modules.Assertion;
+import com.thrive.modules.actions;
+import com.thrive.reportSetup.extentReports;
 
 public class homePage extends projectSetup {
 

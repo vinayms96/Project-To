@@ -1,8 +1,10 @@
-package modules;
+package com.thrive.modules;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+
+import com.thrive.browserSetup.projectSetup;
 
 public class actions extends projectSetup{
 	static Actions a;

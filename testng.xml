@@ -2,24 +2,24 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite" verbose="2" parallel="none">
 	<listeners>
-		<listener class-name="modules.TestListners"></listener>
+		<listener class-name="com.thrive.listeners.TestListners"></listener>
 	</listeners>
 
 	<test thread-count="5" name="Chrome">
 		<parameter name="browser" value="Chrome"></parameter>
 		<classes>
-			<class name="modules.projectSetup" />
-			<class name="testCases.loginFeature" />
-			<class name="testCases.verifyLinks" />
+			<class name="com.thrive.browserSetup.projectSetup" />
+			<class name="com.thrive.regression.loginFeature" />
+			<!-- <class name="com.thrive.regression.verifyLinks" /> -->
 		</classes>
 	</test> <!-- Test -->
 
-	<test thread-count="5" name="Firefox">
+	<!-- <test thread-count="5" name="Firefox">
 		<parameter name="browser" value="Firefox"></parameter>
 		<classes>
-			<class name="modules.projectSetup" />
-			<class name="testCases.loginFeature" />
-			<class name="testCases.verifyLinks" />
+			<class name="com.thrive.browserSetup.projectSetup" />
+			<class name="com.thrive.regression.loginFeature" />
+			<class name="com.thrive.regression.verifyLinks" />
 		</classes>
-	</test> <!-- Test -->
+	</test> --> <!-- Test -->
 </suite> <!-- Suite -->

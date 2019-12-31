@@ -1,4 +1,4 @@
-package modules;
+package com.thrive.reportSetup;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,6 +6,10 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+
+import com.thrive.browserSetup.projectSetup;
+import com.thrive.modules.auto_constant;
+import com.thrive.modules.dateFunc;
 
 public class screenshot extends projectSetup implements auto_constant{
 
