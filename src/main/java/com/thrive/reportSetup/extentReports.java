@@ -5,14 +5,15 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.thrive.browserSetup.projectSetup;
-import com.thrive.modules.auto_constant;
-import com.thrive.modules.dateFunc;
+import com.thrive.utils.Property;
+import com.thrive.utils.auto_constant;
 
 public class extentReports extends projectSetup implements auto_constant {
 	public static ExtentReports extent = new ExtentReports();
 	public static ExtentHtmlReporter reporter;
 	public static ExtentTest extTest;
 	public static ExtentTest childTest;
+	public static String reportPath = Property.getProperty("extentPath") + reportDate + ".html";
 
 	/*
 	 * Generates the Report file in the destination and attach the report in the
@@ -27,7 +28,7 @@ public class extentReports extends projectSetup implements auto_constant {
 		extent.setSystemInfo("Browsers", "Chrome & Firefox");
 
 		// Attaching the Html Report to the extent reference and Configuring the Report
-		reporter = new ExtentHtmlReporter(extentPath + "TestReport " + dateFunc.getReportDate() + ".html");
+		reporter = new ExtentHtmlReporter(reportPath);
 		reporter.config().setCSS(".r-img { width: 30%; }");
 		reporter.config().setDocumentTitle("Automation Test Report");
 		reporter.config().setReportName("TO Test Report");

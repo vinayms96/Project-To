@@ -1,14 +1,18 @@
 package com.thrive.listeners;
 
+import java.io.IOException;
+
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.thrive.modules.screenshot;
 import com.thrive.reportSetup.extentReports;
+import com.thrive.utils.Property;
 
-public class TestListners implements ITestListener{
+public class TestListners implements ITestListener {
 
-	
 	@Override
 	public void onTestStart(ITestResult result) {
 		// TODO Auto-generated method stub
@@ -26,14 +30,22 @@ public class TestListners implements ITestListener{
 	public void onTestFailure(ITestResult result) {
 		// TODO Auto-generated method stub
 		ITestListener.super.onTestFailure(result);
-		extentReports.extTest.fail("The Test Case '" + result.getName() + "' has Failed");
+		try {
+			extentReports.childTest.fail("The Test Case '" + result.getName() + "' has Failed",
+					MediaEntityBuilder.createScreenCaptureFromBase64String(screenshot.shot()).build());
+			if (Property.getProperty("extent").equalsIgnoreCase("on")) {
+				screenshot.shot(result.getName());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void onTestSkipped(ITestResult result) {
 		// TODO Auto-generated method stub
 		ITestListener.super.onTestSkipped(result);
-		extentReports.extTest.skip("The Test Case '" + result.getName() + "' has Skipped");
+		extentReports.childTest.skip("The Test Case '" + result.getName() + "' has Skipped");
 	}
 
 	@Override

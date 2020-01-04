@@ -1,4 +1,4 @@
-package com.thrive.modules;
+package com.thrive.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,7 +13,7 @@ public class excelUtils implements auto_constant{
 
 	public static String getData(String sheetName,int row, int cell) {
 		try {
-			fi = new FileInputStream(new File(excelPath));
+			fi = new FileInputStream(new File(Property.getProperty("excelPath")));
 			w = new XSSFWorkbook(fi);
 		} catch (Exception e) {
 			e.printStackTrace();

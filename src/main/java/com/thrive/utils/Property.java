@@ -1,4 +1,4 @@
-package com.thrive.modules;
+package com.thrive.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,7 +9,7 @@ public class Property implements auto_constant{
 	public static String getProperty(String key) {
 		prop = new Properties();
 		try {
-			prop.load(new FileInputStream(new File(propPath)));
+			prop.load(new FileInputStream(new File(System.getProperty("user.dir")+"/src/main/resources/sys.properties")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

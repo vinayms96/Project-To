@@ -17,15 +17,17 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 
 import com.aventstack.extentreports.Status;
-import com.thrive.modules.Property;
-import com.thrive.modules.auto_constant;
+import com.thrive.modules.dateFunc;
 import com.thrive.reportSetup.extentReports;
+import com.thrive.utils.Property;
+import com.thrive.utils.auto_constant;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class projectSetup implements auto_constant {
 	public static WebDriver driver;
 	public static String extBrowser;
+	public static String reportDate = dateFunc.getReportDate();
 
 	@BeforeSuite(description = "Setting up the Extent Reports", alwaysRun = true)
 	public void setEnviron() {
@@ -80,12 +82,12 @@ public class projectSetup implements auto_constant {
 			}
 		}
 		driver.manage().window().maximize();
-		
+	
 		// Deleting the Cookies of Browser	
 //		driver.manage().deleteAllCookies();
 		
 		// Invoking the URL to test
-		driver.get(url);
+		driver.get(Property.getProperty("url"));
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		System.out.println(driver);
 	}
@@ -95,9 +97,9 @@ public class projectSetup implements auto_constant {
 		
 		// Logs status of test in EXtent Reports after the execution of Test (After each Test ends)
 		if (result.getStatus() == ITestResult.FAILURE) {
-			extentReports.extTest.log(Status.FAIL, result.getThrowable());
+			extentReports.childTest.log(Status.FAIL, result.getThrowable());
 		} else if (result.getStatus() == ITestResult.SKIP) {
-			extentReports.extTest.log(Status.SKIP, "Test Case Skipped is " + result.getName());
+			extentReports.childTest.log(Status.SKIP, "Test Case Skipped is " + result.getName());
 		}
 
 		// Extent reports will be flushed only if extent reports are On

@@ -8,9 +8,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
 import com.thrive.browserSetup.projectSetup;
-import com.thrive.modules.Assertion;
 import com.thrive.modules.actions;
 import com.thrive.reportSetup.extentReports;
 
@@ -35,8 +35,10 @@ public class homePage extends projectSetup {
 	 * Click on Login link in the Header
 	 */
 	public void clickLoginLink() throws Exception {
-		extentReports.childTest = extentReports.extTest.createNode("Click LoginLink");
+		extentReports.childTest = extentReports.extTest.createNode("Click LoginLink");		
+		
 		actions.moveClick(login);
+		
 		extentReports.childTest.info("Login link is clicked in Homepage");
 	}
 
@@ -61,8 +63,11 @@ public class homePage extends projectSetup {
 				while(wind.hasNext()) {
 					driver.switchTo().window(wind.next());
 					String breadName = breadcrumbs.getText();
-					Assertion.assertEquals(pageTitle.getText(), breadName, extentReports.childTest,
-							"Menu link is redirected to " + breadName + " page");
+//					Assertion.assertEquals(pageTitle.getText(), breadName, extentReports.childTest,
+//							"Menu link is redirected to " + breadName + " page");
+					Assert.assertEquals(pageTitle.getText(), breadName);
+					extentReports.childTest.pass("Menu link is redirected to " + breadName + " page");
+					
 					driver.close();
 				}
 				driver.switchTo().window(parent);

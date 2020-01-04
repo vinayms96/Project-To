@@ -20,14 +20,14 @@ public class loginFeature extends projectSetup {
 
 		// Checking the error msg box
 		hp.clickLoginLink();
-//		slp.errorMsgBox();
+		slp.errorMsgBox();
 		
 		// Checks the Email and Password field errors
-//		slp.textFieldError();
+		slp.textFieldError();
 
 		// Verifies with valid login credentials
-//		slp.loginValidCred();
 		slp.everyFieldErrorCheck();
+		slp.loginValidCred();
 		
 	}
 
