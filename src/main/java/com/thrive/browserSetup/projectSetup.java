@@ -12,12 +12,14 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 
 import com.aventstack.extentreports.Status;
 import com.thrive.modules.dateFunc;
+import com.thrive.modules.statusMailing;
 import com.thrive.reportSetup.extentReports;
 import com.thrive.utils.Property;
 import com.thrive.utils.auto_constant;
@@ -43,12 +45,12 @@ public class projectSetup implements auto_constant {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 		capabilities.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
-		
+
 		// Merging the Capabilities with Browser Options
 		// Chrome Options
 		ChromeOptions chOptions = new ChromeOptions();
 		chOptions.merge(capabilities);
-		
+
 		// Firefox Options
 		FirefoxOptions fiOptions = new FirefoxOptions();
 		fiOptions.merge(capabilities);
@@ -82,38 +84,47 @@ public class projectSetup implements auto_constant {
 			}
 		}
 		driver.manage().window().maximize();
-	
-		// Deleting the Cookies of Browser	
+
+		// Deleting the Cookies of Browser
 //		driver.manage().deleteAllCookies();
-		
+
 		// Invoking the URL to test
 		driver.get(Property.getProperty("url"));
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		System.out.println(driver);
 	}
 
-	@AfterMethod(description = "Results to append in Reports at the end of test",alwaysRun = true)
+	@AfterMethod(description = "Results to append in Reports at the end of test", alwaysRun = true)
 	public void tearDown(ITestResult result) {
-		
-		// Logs status of test in EXtent Reports after the execution of Test (After each Test ends)
+
+		// Logs status of test in EXtent Reports after the execution of Test (After each
+		// Test ends)
 		if (result.getStatus() == ITestResult.FAILURE) {
-			extentReports.childTest.log(Status.FAIL, result.getThrowable());
+			extentReports.getChildTest().log(Status.FAIL, result.getThrowable());
 		} else if (result.getStatus() == ITestResult.SKIP) {
-			extentReports.childTest.log(Status.SKIP, "Test Case Skipped is " + result.getName());
+			extentReports.getChildTest().log(Status.SKIP, "Test Case Skipped is " + result.getName());
 		}
 
 		// Extent reports will be flushed only if extent reports are On
 		// So Reports will be generated only if extent is flushed
 		if (Property.getProperty("extent").equalsIgnoreCase("On")) {
-			extentReports.extent.flush();
+			extentReports.getExtent().flush();
 		}
 	}
 
-	@AfterClass(description = "Close the WebDriver instance",alwaysRun = true)
+	@AfterClass(description = "Close the WebDriver instance", alwaysRun = true)
 	public void closeBrowser() {
 		driver.close();
 	}
-	
+
+	@AfterSuite
+	public void sendMails() {
+		if (Property.getProperty("extent").equalsIgnoreCase("on")) {
+			statusMailing.report_mail();
+//			statusMailing.fail_msg_mail();
+		}
+	}
+
 	public static WebDriver getDriver() {
 		return driver;
 	}

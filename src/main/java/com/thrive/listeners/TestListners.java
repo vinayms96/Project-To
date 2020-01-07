@@ -31,7 +31,7 @@ public class TestListners implements ITestListener {
 		// TODO Auto-generated method stub
 		ITestListener.super.onTestFailure(result);
 		try {
-			extentReports.childTest.fail("The Test Case '" + result.getName() + "' has Failed",
+			extentReports.getChildTest().fail("The Test Case '" + result.getName() + "' has Failed",
 					MediaEntityBuilder.createScreenCaptureFromBase64String(screenshot.shot()).build());
 			if (Property.getProperty("extent").equalsIgnoreCase("on")) {
 				screenshot.shot(result.getName());
@@ -45,7 +45,7 @@ public class TestListners implements ITestListener {
 	public void onTestSkipped(ITestResult result) {
 		// TODO Auto-generated method stub
 		ITestListener.super.onTestSkipped(result);
-		extentReports.childTest.skip("The Test Case '" + result.getName() + "' has Skipped");
+		extentReports.getChildTest().skip("The Test Case '" + result.getName() + "' has Skipped");
 	}
 
 	@Override

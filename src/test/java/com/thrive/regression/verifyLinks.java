@@ -10,11 +10,13 @@ public class verifyLinks extends projectSetup {
 
 	@Test(description = "Verifing the links redirection")
 	public void verifyAllLinks() {
-		// Created Extent Test reference
-		extentReports.extTest = extentReports.extent.createTest(projectSetup.extBrowser + ": Verify Links");
 
-		// Homepage reference
+		// Page object references
+		extentReports report = new extentReports();
 		homePage hp = new homePage(driver);
+
+		// Created Extent Test reference
+		report.setExtentTest(projectSetup.extBrowser + ": Verify Links");
 
 		// Calling the homepage methods
 		hp.checkMenuLinks();

@@ -9,10 +9,10 @@ import com.thrive.utils.Property;
 import com.thrive.utils.auto_constant;
 
 public class extentReports extends projectSetup implements auto_constant {
-	public static ExtentReports extent = new ExtentReports();
+	private static ExtentReports extent = new ExtentReports();
 	public static ExtentHtmlReporter reporter;
-	public static ExtentTest extTest;
-	public static ExtentTest childTest;
+	private static ExtentTest extTest;
+	private static ExtentTest childTest;
 	public static String reportPath = Property.getProperty("extentPath") + reportDate + ".html";
 
 	/*
@@ -38,11 +38,38 @@ public class extentReports extends projectSetup implements auto_constant {
 	}
 
 	/*
-	 * Creates a new Extent test and returns the extentTest object
+	 * Sets the Extent test
 	 */
-	public static ExtentTest extentTest(String testName) {
+	public void setExtentTest(String testName) {
 		extTest = extent.createTest(testName);
+	}
+	
+	/*
+	 * Sets the Child Test
+	 */
+	public void setChildTest(String childName) {
+		childTest = extTest.createNode(childName);
+	}
+	
+	/*
+	 * Returns the Extent Test reference
+	 */
+	public static ExtentTest getExtentTest() {
 		return extTest;
+	}
+	
+	/*
+	 * Returns Child Test reference
+	 */
+	public static ExtentTest getChildTest() {
+		return childTest;
+	}
+	
+	/*
+	 * Returns the ExtentReports reference
+	 */
+	public static ExtentReports getExtent() {
+		return extent;
 	}
 
 }

@@ -54,7 +54,7 @@ public class wait extends projectSetup {
 			});
 		} catch (Exception e) {
 			System.out.println("Could Not find the specified Element");
-			extentReports.childTest.fail("Could Not find the specified Element");
+			extentReports.getChildTest().fail("Could Not find the specified Element");
 		}
 	}
 

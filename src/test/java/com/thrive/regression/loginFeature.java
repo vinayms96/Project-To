@@ -13,10 +13,11 @@ public class loginFeature extends projectSetup {
 	public void loginTest() throws Exception {
 
 		// Page model objects
+		extentReports report = new extentReports();
 		homePage hp = new homePage(driver);
 		signup_login_Page slp = new signup_login_Page(driver);
 		
-		extentReports.extTest = extentReports.extentTest(projectSetup.extBrowser + ": Login Feature");
+		report.setExtentTest(projectSetup.extBrowser + ": Login Feature");
 
 		// Checking the error msg box
 		hp.clickLoginLink();

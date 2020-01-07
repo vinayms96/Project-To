@@ -15,6 +15,7 @@ import com.thrive.modules.actions;
 import com.thrive.reportSetup.extentReports;
 
 public class homePage extends projectSetup {
+	extentReports report = new extentReports();
 
 	@FindBy(xpath = "//div[@class='panel header']/ul/li[2]/a")
 	private WebElement menu;
@@ -35,11 +36,11 @@ public class homePage extends projectSetup {
 	 * Click on Login link in the Header
 	 */
 	public void clickLoginLink() throws Exception {
-		extentReports.childTest = extentReports.extTest.createNode("Click LoginLink");		
+		report.setChildTest("Click LoginLink");		
 		
 		actions.moveClick(login);
 		
-		extentReports.childTest.info("Login link is clicked in Homepage");
+		extentReports.getChildTest().info("Login link is clicked in Homepage");
 	}
 
 	/*
@@ -48,7 +49,7 @@ public class homePage extends projectSetup {
 	public void checkMenuLinks() {
 
 		// Created a child node
-		extentReports.childTest = extentReports.extTest.createNode("Check All the Menu Links");
+		report.setChildTest("Check All the Menu Links");
 
 		// Open all Menu links in different Tabs
 				Iterator<WebElement> links = menuLinks.iterator();
@@ -66,7 +67,7 @@ public class homePage extends projectSetup {
 //					Assertion.assertEquals(pageTitle.getText(), breadName, extentReports.childTest,
 //							"Menu link is redirected to " + breadName + " page");
 					Assert.assertEquals(pageTitle.getText(), breadName);
-					extentReports.childTest.pass("Menu link is redirected to " + breadName + " page");
+					extentReports.getChildTest().pass("Menu link is redirected to " + breadName + " page");
 					
 					driver.close();
 				}
