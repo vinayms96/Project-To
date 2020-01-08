@@ -1,9 +1,12 @@
 package com.thrive.pageModels;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,32 +17,36 @@ import com.thrive.browserSetup.projectSetup;
 import com.thrive.modules.actions;
 import com.thrive.reportSetup.extentReports;
 
-public class homePage extends projectSetup {
-	extentReports report = new extentReports();
+public class home_page extends projectSetup {
 
-	@FindBy(xpath = "//div[@class='panel header']/ul/li[2]/a")
+	@FindBy(xpath = "//div[@class='header content']/div[2]/a")
 	private WebElement menu;
 	@FindBy(xpath = "//ul[@class=\"header links\"]/li[2]/a")
 	private WebElement login;
-	@FindBy(xpath = "//div[@id='store.menu']/nav/ul/li")
+//	@FindBy(xpath = "//div[@id='store.menu']/nav/ul/li")
+//	private List<WebElement> menuLinks;
+	@FindBy(xpath = "//div[@id='store.menu']/nav/div/div/div")
 	private List<WebElement> menuLinks;
 	@FindBy(xpath = "//div[@class='breadcrumbs']/ul/li[2]/strong")
 	private WebElement breadcrumbs;
 	@FindBy(xpath = "//div[@class='page-title-wrapper']/h1/span")
 	private WebElement pageTitle;
 
-	public homePage(WebDriver driver) {
+	public home_page(WebDriver driver) {
 		PageFactory.initElements(driver, this);
 	}
 
 	/*
 	 * Click on Login link in the Header
 	 */
-	public void clickLoginLink() throws Exception {
-		report.setChildTest("Click LoginLink");		
+	public void clickLoginLink() throws InvocationTargetException {
+		extentReports.setChildTest("Click LoginLink");		
 		
-		actions.moveClick(login);
-		
+//		actions.moveClick(menu);
+		System.out.println("menu=" + getDriver().findElement(By.xpath("//div[@class='header content']/div[2]/a")));
+		JavascriptExecutor js = (JavascriptExecutor) getDriver();	
+		js.executeScript("arguments[0].click();", menu);
+				
 		extentReports.getChildTest().info("Login link is clicked in Homepage");
 	}
 
@@ -49,29 +56,29 @@ public class homePage extends projectSetup {
 	public void checkMenuLinks() {
 
 		// Created a child node
-		report.setChildTest("Check All the Menu Links");
+		extentReports.setChildTest("Check All the Menu Links");
 
 		// Open all Menu links in different Tabs
 				Iterator<WebElement> links = menuLinks.iterator();
 				while (links.hasNext()) {
-					WebElement element = links.next();
+					WebElement element = links.next().findElement(By.tagName("a"));
 					actions.clickOpenTab(element);
 				}
 				// Switch to all the tabs and verify the Pages
-				Set<String> windows = driver.getWindowHandles();
+				Set<String> windows = getDriver().getWindowHandles();
 				Iterator<String> wind = windows.iterator();
 				String parent = wind.next();
 				while(wind.hasNext()) {
-					driver.switchTo().window(wind.next());
+					getDriver().switchTo().window(wind.next());
 					String breadName = breadcrumbs.getText();
 //					Assertion.assertEquals(pageTitle.getText(), breadName, extentReports.childTest,
 //							"Menu link is redirected to " + breadName + " page");
 					Assert.assertEquals(pageTitle.getText(), breadName);
 					extentReports.getChildTest().pass("Menu link is redirected to " + breadName + " page");
 					
-					driver.close();
+					getDriver().close();
 				}
-				driver.switchTo().window(parent);
+				getDriver().switchTo().window(parent);
 				
 		// Looping through all the Menu links and verifying the redirection 
 //		for (int link = 1; link <= menuLinks.size(); link++) {

@@ -14,12 +14,12 @@ import com.thrive.browserSetup.projectSetup;
 import com.thrive.modules.actions;
 import com.thrive.modules.screenshot;
 import com.thrive.reportSetup.extentReports;
-import com.thrive.utils.Property;
 import com.thrive.utils.excelUtils;
 
-public class signup_login_Page extends projectSetup {
+public class login_page extends projectSetup {
 	int count;
-	extentReports report = new extentReports();
+//	private JavascriptExecutor js = (JavascriptExecutor) driver;
+//	private ArrayList<String> al;
 
 	/*
 	 * Login page Elements
@@ -30,7 +30,7 @@ public class signup_login_Page extends projectSetup {
 	private WebElement email_error;
 	@FindBy(xpath = "//div[@id='pass-error']")
 	private WebElement pass_error;
-	@FindBy(xpath = "//div[@class='panel header'] //li[@class='greet welcome']/span")
+	@FindBy(xpath = "//div[@class='header content']/div[2]/span/button/span")
 	private WebElement userName;
 	@FindBy(xpath = "//input[@id='email']")
 	private WebElement emailBox;
@@ -42,7 +42,7 @@ public class signup_login_Page extends projectSetup {
 	/*
 	 * Constructor Sets the driver to Current page
 	 */
-	public signup_login_Page(WebDriver driver) {
+	public login_page(WebDriver driver) {
 		PageFactory.initElements(driver, this);
 	}
 
@@ -50,26 +50,28 @@ public class signup_login_Page extends projectSetup {
 	 * Checking error message displayed in Message block
 	 */
 	public void errorMsgBox() {
-		count = 0;
 
 		try {
-		// Extent Report Child node created
-		report.setChildTest("Error Message Box");
+			// Extent Report Child node created
+			extentReports.setChildTest("Error Message Box");
 
-		sign_Submit.click();
+			actions.moveClick(sign_Submit);
+//		js.executeScript("arguments[0].scrollIntoView();", sign_Submit);
+//		js.executeScript("arguments[0].click();", sign_Submit);
 
-		com.thrive.modules.wait.waitVisible(5, emptyLogErr);
+			com.thrive.modules.wait.waitVisible(5, emptyLogErr);
 
-		// Comparing Error message
-		Assert.assertEquals(emptyLogErr.getAttribute("innerHTML"), "A login and a password are required.");
-		System.out.println("Login and Password error message is displayed");
-		extentReports.getChildTest().pass("Login and Password error message is displayed");
+			// Comparing Error message
+			Assert.assertEquals(emptyLogErr.getAttribute("innerHTML"), excelUtils.getData("login").get(6));
+			System.out.println("Login and Password error message is displayed");
+			extentReports.getChildTest().pass("Login and Password error message is displayed");
 
-		count++;
+			count++;
 		} catch (Exception e) {
 			try {
 				System.out.println(e.getCause());
-				extentReports.getChildTest().fail(e.getCause(), MediaEntityBuilder.createScreenCaptureFromBase64String(screenshot.shot()).build());
+				extentReports.getChildTest().fail(e.getCause(),
+						MediaEntityBuilder.createScreenCaptureFromBase64String(screenshot.shot()).build());
 			} catch (IOException e1) {
 				e1.getCause();
 			}
@@ -83,20 +85,22 @@ public class signup_login_Page extends projectSetup {
 	public void textFieldError() throws Exception {
 
 		// Extent Report Child node created
-		report.setChildTest("Text Field error message");
+		extentReports.setChildTest("Text Field error message");
 
 		// Checking error message displayed in individual input boxes
 		if (count == 1) {
 			sign_Submit.click();
+//			js.executeScript("arguments[0].scrollIntoView();", sign_Submit);
+//			js.executeScript("arguments[0].click();", sign_Submit);
 		}
 		com.thrive.modules.wait.waitVisible(5, email_error);
 
 		// Comparing Error Messages
-		Assert.assertEquals(email_error.getText(), excelUtils.getData(Property.getProperty("sheetName"), 2, 6));
+		Assert.assertEquals(email_error.getText(), excelUtils.findRowData("login").get(5));
 		System.out.println("Proper error msg for Email Field is displayed");
 		extentReports.getChildTest().pass("Proper error msg for Email Field is displayed");
 
-		Assert.assertEquals(pass_error.getText(), excelUtils.getData(Property.getProperty("sheetName"), 2, 6));
+		Assert.assertEquals(pass_error.getText(), excelUtils.findRowData("login").get(5));
 		System.out.println("Proper error msg for Password Field is displayed");
 		extentReports.getChildTest().pass("Proper error msg for Password Field is displayed");
 
@@ -109,28 +113,26 @@ public class signup_login_Page extends projectSetup {
 	public void loginValidCred() throws Exception {
 
 		// Extent Report Child node created
-		report.setChildTest("Login with Valid Credentials");
+		extentReports.setChildTest("Login with Valid Credentials");
 
 		// Fetching the data from Excel sheet and entering the values
-		int cell = 4;
+		int cell = 3;
 		for (int i = 1; i <= 2; i++) {
-			driver.findElement(By.xpath("(//form[@class='form form-login']/fieldset/div/div)[" + i + "]/input"))
-					.sendKeys(excelUtils.getData(Property.getProperty("sheetName"), 2, cell++));
+			getDriver().findElement(By.xpath("(//form[@class='form form-login']/fieldset/div/div)[" + i + "]/input"))
+					.sendKeys(excelUtils.getData("login").get(cell++));
 		}
 
-		sign_Submit.click();
+		actions.moveClick(sign_Submit);
+//		js.executeScript("arguments[0].scrollIntoView()", sign_Submit);
+//		js.executeScript("arguments[0].click();", sign_Submit);
 
-		String fullName = excelUtils.getData(Property.getProperty("sheetName"), 2, 2) + " "
-				+ excelUtils.getData(Property.getProperty("sheetName"), 2, 3);
+		String fullName = excelUtils.getData("login").get(1) + " " + excelUtils.getData("login").get(2);
 
 		// Waiting for the username to be displayed in the Header
 		Thread.sleep(5000);
 
-		// Splitting the text from Default text
-		String[] acName = userName.getText().split(",");
-
 		// Verifying if the User name is properly displayed
-		Assert.assertTrue(acName[1].trim().substring(0, acName[1].trim().length() - 1).contains(fullName));
+		Assert.assertEquals(userName.getText(), fullName);
 		System.out.println("Logged in Successfully");
 		extentReports.getChildTest().pass("Logged in Successfully");
 	}
@@ -141,25 +143,27 @@ public class signup_login_Page extends projectSetup {
 	public void everyFieldErrorCheck() {
 
 		// Extent Report Child node created
-		report.setChildTest("Individual Login Field Error Msg");
+		extentReports.setChildTest("Individual Login Field Error Msg");
 
 		// verify the error msg displayed in Password field
-		emailBox.sendKeys(excelUtils.getData(Property.getProperty("sheetName"), 2, 4));
+		emailBox.sendKeys(excelUtils.getData("login").get(3));
 		actions.moveClick(sign_Submit);
+//		js.executeScript("arguments[0].click();", sign_Submit);
 
 		// Compare the Error message
-		Assert.assertEquals(pass_error.getText(), excelUtils.getData(Property.getProperty("sheetName"), 2, 6));
+		Assert.assertEquals(pass_error.getText(), excelUtils.getData("login").get(5));
 		System.out.println("Error message is displayed for Password Field");
 		extentReports.getChildTest().pass("Error message is displayed for Password Field");
 
 		emailBox.clear();
 
 		// Verify the error msg displayed in Email field
-		passBox.sendKeys(excelUtils.getData(Property.getProperty("sheetName"), 2, 5));
+		passBox.sendKeys(excelUtils.getData("login").get(4));
 		actions.moveClick(sign_Submit);
+//		js.executeScript("arguments[0].click();", sign_Submit);
 
 		// Compare the Error message
-		Assert.assertEquals(email_error.getText(), excelUtils.getData(Property.getProperty("sheetName"), 2, 6));
+		Assert.assertEquals(email_error.getText(), excelUtils.getData("login").get(5));
 		System.out.println("Error message is displayed for Email Field");
 		extentReports.getChildTest().pass("Error message is displayed for Email Field");
 

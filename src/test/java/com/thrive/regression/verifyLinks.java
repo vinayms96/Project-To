@@ -3,7 +3,7 @@ package com.thrive.regression;
 import org.testng.annotations.Test;
 
 import com.thrive.browserSetup.projectSetup;
-import com.thrive.pageModels.homePage;
+import com.thrive.pageModels.home_page;
 import com.thrive.reportSetup.extentReports;
 
 public class verifyLinks extends projectSetup {
@@ -12,11 +12,10 @@ public class verifyLinks extends projectSetup {
 	public void verifyAllLinks() {
 
 		// Page object references
-		extentReports report = new extentReports();
-		homePage hp = new homePage(driver);
+		home_page hp = new home_page(driver);
 
 		// Created Extent Test reference
-		report.setExtentTest(projectSetup.extBrowser + ": Verify Links");
+		extentReports.setExtentTest(projectSetup.extBrowser + ": Verify Links");
 
 		// Calling the homepage methods
 		hp.checkMenuLinks();

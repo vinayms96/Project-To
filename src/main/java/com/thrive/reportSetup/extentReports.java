@@ -40,14 +40,14 @@ public class extentReports extends projectSetup implements auto_constant {
 	/*
 	 * Sets the Extent test
 	 */
-	public void setExtentTest(String testName) {
+	public static void setExtentTest(String testName) {
 		extTest = extent.createTest(testName);
 	}
 	
 	/*
 	 * Sets the Child Test
 	 */
-	public void setChildTest(String childName) {
+	public static void setChildTest(String childName) {
 		childTest = extTest.createNode(childName);
 	}
 	
