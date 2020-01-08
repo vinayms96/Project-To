@@ -13,10 +13,10 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.thrive.browserSetup.projectSetup;
+import com.thrive.browserSetup.ProjectSetup;
 import com.thrive.reportSetup.extentReports;
 
-public class wait extends projectSetup {
+public class wait extends ProjectSetup {
 
 	static Wait<WebDriver> w;
 

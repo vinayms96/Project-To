@@ -9,12 +9,12 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 import com.aventstack.extentreports.MediaEntityBuilder;
-import com.thrive.browserSetup.projectSetup;
+import com.thrive.browserSetup.ProjectSetup;
 import com.thrive.modules.actions;
 import com.thrive.modules.screenshot;
 import com.thrive.reportSetup.extentReports;
 
-public class privacy_policy extends projectSetup {
+public class privacy_policy extends ProjectSetup {
 
 	// Page Elements
 	@FindBy(id = "gdpr-notice-cookie-block")

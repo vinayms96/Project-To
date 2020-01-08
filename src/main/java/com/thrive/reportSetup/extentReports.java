@@ -4,11 +4,11 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
-import com.thrive.browserSetup.projectSetup;
+import com.thrive.browserSetup.ProjectSetup;
 import com.thrive.utils.Property;
 import com.thrive.utils.auto_constant;
 
-public class extentReports extends projectSetup implements auto_constant {
+public class extentReports extends ProjectSetup implements auto_constant {
 	private static ExtentReports extent = new ExtentReports();
 	public static ExtentHtmlReporter reporter;
 	private static ExtentTest extTest;

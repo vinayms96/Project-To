@@ -2,13 +2,13 @@ package com.thrive.regression;
 
 import org.testng.annotations.Test;
 
-import com.thrive.browserSetup.projectSetup;
+import com.thrive.browserSetup.ProjectSetup;
 import com.thrive.pageModels.home_page;
 import com.thrive.pageModels.login_page;
 import com.thrive.pageModels.privacy_policy;
 import com.thrive.reportSetup.extentReports;
 
-public class loginFeature extends projectSetup {
+public class loginFeature extends ProjectSetup {
 
 	@Test(description = "Checking the functionality of the Login Feature")
 	public void loginTest() throws Exception {
@@ -18,12 +18,12 @@ public class loginFeature extends projectSetup {
 		login_page slp = new login_page(driver);
 		privacy_policy privacy = new privacy_policy(driver);
 
-		extentReports.setExtentTest(projectSetup.extBrowser + ": Login Feature");
-
-		hp.clickLoginLink();
+		extentReports.setExtentTest(ProjectSetup.extBrowser + ": Login Feature");
 
 		// Check if Privacy Policy is displayed
 		privacy.policy_check();
+
+		hp.clickLoginLink();
 
 		// Checking the error msg box
 		slp.errorMsgBox();

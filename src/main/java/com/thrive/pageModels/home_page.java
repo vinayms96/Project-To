@@ -13,11 +13,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
-import com.thrive.browserSetup.projectSetup;
+import com.thrive.browserSetup.ProjectSetup;
 import com.thrive.modules.actions;
 import com.thrive.reportSetup.extentReports;
 
-public class home_page extends projectSetup {
+public class home_page extends ProjectSetup {
 
 	@FindBy(xpath = "//div[@class='header content']/div[2]/a")
 	private WebElement menu;

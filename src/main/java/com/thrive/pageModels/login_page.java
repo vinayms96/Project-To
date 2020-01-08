@@ -10,13 +10,13 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 import com.aventstack.extentreports.MediaEntityBuilder;
-import com.thrive.browserSetup.projectSetup;
+import com.thrive.browserSetup.ProjectSetup;
 import com.thrive.modules.actions;
 import com.thrive.modules.screenshot;
 import com.thrive.reportSetup.extentReports;
 import com.thrive.utils.excelUtils;
 
-public class login_page extends projectSetup {
+public class login_page extends ProjectSetup {
 	int count;
 //	private JavascriptExecutor js = (JavascriptExecutor) driver;
 //	private ArrayList<String> al;
@@ -24,7 +24,7 @@ public class login_page extends projectSetup {
 	/*
 	 * Login page Elements
 	 */
-	@FindBy(xpath = "//div[@class='block-content']/form/fieldset/div[4]/div/button/span")
+	@FindBy(xpath = "//div[@class='block-content']/form/fieldset/div[3]/div/button/span")
 	private WebElement sign_Submit;
 	@FindBy(xpath = "//div[@id='email-error']")
 	private WebElement email_error;
@@ -55,6 +55,7 @@ public class login_page extends projectSetup {
 			// Extent Report Child node created
 			extentReports.setChildTest("Error Message Box");
 
+			com.thrive.modules.wait.waitVisible(5, sign_Submit);
 			actions.moveClick(sign_Submit);
 //		js.executeScript("arguments[0].scrollIntoView();", sign_Submit);
 //		js.executeScript("arguments[0].click();", sign_Submit);

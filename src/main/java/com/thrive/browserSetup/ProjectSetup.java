@@ -26,7 +26,7 @@ import com.thrive.utils.auto_constant;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class projectSetup implements auto_constant {
+public class ProjectSetup implements auto_constant {
 	public static WebDriver driver;
 	public static String extBrowser;
 	public static String reportDate = dateFunc.getReportDate();
@@ -39,7 +39,7 @@ public class projectSetup implements auto_constant {
 	@BeforeClass(description = "Checking the browser and launching it", alwaysRun = true)
 	@Parameters({ "browser" })
 	public void openBrowser(String browser) {
-		projectSetup.extBrowser = browser;
+		ProjectSetup.extBrowser = browser;
 
 		// Accepting the Expired SSL Certificates or Insecure Certificates
 		DesiredCapabilities capabilities = new DesiredCapabilities();

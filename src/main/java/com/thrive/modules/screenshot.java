@@ -7,10 +7,10 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
-import com.thrive.browserSetup.projectSetup;
+import com.thrive.browserSetup.ProjectSetup;
 import com.thrive.utils.auto_constant;
 
-public class screenshot extends projectSetup implements auto_constant {
+public class screenshot extends ProjectSetup implements auto_constant {
 
 	/*
 	 * Take the Screenshot of failed cases and stores in Destination then returns
