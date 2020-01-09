@@ -5,6 +5,16 @@
         <listener class-name="com.thrive.listeners.TestListners"></listener>
     </listeners>
 
+<<<<<<< HEAD
+	<test thread-count="5" name="Chrome">
+		<parameter name="browser" value="Chrome"></parameter>
+		<classes>
+			<class name="com.thrive.browserSetup.ProjectSetup" />
+			<class name="com.thrive.regression.loginFeature" />
+			<!-- <class name="com.thrive.regression.verifyLinks" /> -->
+		</classes>
+	</test> <!-- Test -->
+=======
     <test thread-count="5" name="Chrome">
         <parameter name="browser" value="Chrome"></parameter>
         <classes>
@@ -18,6 +28,7 @@
             <class name="com.thrive.regression.VerifyLinks"/>
         </classes>
     </test> <!-- Test -->
+>>>>>>> 279735f510ab984c93f0587a3218092c200b9ad6
 
     <!-- <test thread-count="5" name="Firefox">
         <parameter name="browser" value="Firefox"></parameter>

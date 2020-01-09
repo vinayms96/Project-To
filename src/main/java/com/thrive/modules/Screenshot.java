@@ -7,7 +7,6 @@ import com.thrive.browserSetup.ProjectSetup;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-
 import com.thrive.utils.Auto_constant;
 
 public class Screenshot extends ProjectSetup implements Auto_constant {

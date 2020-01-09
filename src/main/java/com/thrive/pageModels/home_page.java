@@ -14,8 +14,13 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 import com.thrive.browserSetup.ProjectSetup;
+<<<<<<< HEAD
+import com.thrive.modules.actions;
+import com.thrive.reportSetup.extentReports;
+=======
 import com.thrive.modules.Action;
 import com.thrive.reportSetup.ExtentReports;
+>>>>>>> 279735f510ab984c93f0587a3218092c200b9ad6
 
 public class home_page extends ProjectSetup {
 
