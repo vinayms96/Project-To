@@ -11,7 +11,7 @@ import org.apache.poi.ss.util.NumberToTextConverter;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class excelUtils {
+public class ExcelUtils {
 	static FileInputStream fi;
 	static XSSFWorkbook w;
 	static XSSFSheet sheet;

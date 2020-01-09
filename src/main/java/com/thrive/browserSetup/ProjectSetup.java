@@ -2,6 +2,7 @@ package com.thrive.browserSetup;
 
 import java.util.concurrent.TimeUnit;
 
+import com.thrive.reportSetup.ExtentReports;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -18,22 +19,22 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 
 import com.aventstack.extentreports.Status;
-import com.thrive.modules.dateFunc;
-import com.thrive.modules.statusMailing;
-import com.thrive.reportSetup.extentReports;
+import com.thrive.modules.DateFunc;
+import com.thrive.modules.StatusMailing;
+import com.thrive.reportSetup.ExtentReports;
 import com.thrive.utils.Property;
-import com.thrive.utils.auto_constant;
+import com.thrive.utils.Auto_constant;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class ProjectSetup implements auto_constant {
+public class ProjectSetup implements Auto_constant {
 	public static WebDriver driver;
 	public static String extBrowser;
-	public static String reportDate = dateFunc.getReportDate();
+	public static String reportDate = DateFunc.getReportDate();
 
 	@BeforeSuite(description = "Setting up the Extent Reports", alwaysRun = true)
 	public void setEnviron() {
-		extentReports.attachReport();
+		ExtentReports.attachReport();
 	}
 
 	@BeforeClass(description = "Checking the browser and launching it", alwaysRun = true)
@@ -100,15 +101,15 @@ public class ProjectSetup implements auto_constant {
 		// Logs status of test in EXtent Reports after the execution of Test (After each
 		// Test ends)
 		if (result.getStatus() == ITestResult.FAILURE) {
-			extentReports.getChildTest().log(Status.FAIL, result.getThrowable());
+			ExtentReports.getChildTest().log(Status.FAIL, result.getThrowable());
 		} else if (result.getStatus() == ITestResult.SKIP) {
-			extentReports.getChildTest().log(Status.SKIP, "Test Case Skipped is " + result.getName());
+			ExtentReports.getChildTest().log(Status.SKIP, "Test Case Skipped is " + result.getName());
 		}
 
 		// Extent reports will be flushed only if extent reports are On
 		// So Reports will be generated only if extent is flushed
 		if (Property.getProperty("extent").equalsIgnoreCase("On")) {
-			extentReports.getExtent().flush();
+			ExtentReports.getExtent().flush();
 		}
 	}
 
@@ -120,7 +121,7 @@ public class ProjectSetup implements auto_constant {
 	@AfterSuite
 	public void sendMails() {
 		if (Property.getProperty("extent").equalsIgnoreCase("on")) {
-			statusMailing.report_mail();
+			StatusMailing.report_mail();
 //			statusMailing.fail_msg_mail();
 		}
 	}

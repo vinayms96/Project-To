@@ -1,12 +1,13 @@
 package com.thrive.modules;
 
+import com.thrive.browserSetup.ProjectSetup;
+import com.thrive.logger.LoggerConfig;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import com.thrive.browserSetup.ProjectSetup;
+public class Action extends ProjectSetup {
 
-public class actions extends ProjectSetup{
 	static Actions a;
 	
 	public static void moveOver(WebElement element) {

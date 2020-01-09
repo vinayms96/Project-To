@@ -6,7 +6,7 @@ import com.thrive.browserSetup.ProjectSetup;
 import com.thrive.pageModels.home_page;
 import com.thrive.pageModels.login_page;
 import com.thrive.pageModels.privacy_policy;
-import com.thrive.reportSetup.extentReports;
+import com.thrive.reportSetup.ExtentReports;
 
 public class loginFeature extends ProjectSetup {
 
@@ -18,7 +18,7 @@ public class loginFeature extends ProjectSetup {
 		login_page slp = new login_page(driver);
 		privacy_policy privacy = new privacy_policy(driver);
 
-		extentReports.setExtentTest(ProjectSetup.extBrowser + ": Login Feature");
+		ExtentReports.setExtentTest(ProjectSetup.extBrowser + ": Login Feature");
 
 		// Check if Privacy Policy is displayed
 		privacy.policy_check();

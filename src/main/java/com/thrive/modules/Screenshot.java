@@ -3,14 +3,13 @@ package com.thrive.modules;
 import java.io.File;
 import java.io.IOException;
 
+import com.thrive.browserSetup.ProjectSetup;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import com.thrive.utils.Auto_constant;
 
-import com.thrive.browserSetup.ProjectSetup;
-import com.thrive.utils.auto_constant;
-
-public class screenshot extends ProjectSetup implements auto_constant {
+public class Screenshot extends ProjectSetup implements Auto_constant {
 
 	/*
 	 * Take the Screenshot of failed cases and stores in Destination then returns
