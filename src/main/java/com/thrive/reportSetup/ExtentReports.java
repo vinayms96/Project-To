@@ -1,15 +1,14 @@
 package com.thrive.reportSetup;
 
-import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
-import com.thrive.browserSetup.projectSetup;
+import com.thrive.browserSetup.ProjectSetup;
 import com.thrive.utils.Property;
-import com.thrive.utils.auto_constant;
+import com.thrive.utils.Auto_constant;
 
-public class extentReports extends projectSetup implements auto_constant {
-	private static ExtentReports extent = new ExtentReports();
+public class ExtentReports extends ProjectSetup implements Auto_constant {
+	private static com.aventstack.extentreports.ExtentReports extent = new com.aventstack.extentreports.ExtentReports();
 	public static ExtentHtmlReporter reporter;
 	private static ExtentTest extTest;
 	private static ExtentTest childTest;
@@ -68,7 +67,7 @@ public class extentReports extends projectSetup implements auto_constant {
 	/*
 	 * Returns the ExtentReports reference
 	 */
-	public static ExtentReports getExtent() {
+	public static com.aventstack.extentreports.ExtentReports getExtent() {
 		return extent;
 	}
 

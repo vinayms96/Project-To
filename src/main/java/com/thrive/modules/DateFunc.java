@@ -3,7 +3,7 @@ package com.thrive.modules;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class dateFunc {
+public class DateFunc {
 	
 	public static String getReportDate() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("E dd-MM hh:mm:ssa");

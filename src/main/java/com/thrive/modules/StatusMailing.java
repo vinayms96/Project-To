@@ -7,16 +7,16 @@ import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.MultiPartEmail;
 import org.apache.commons.mail.SimpleEmail;
 
-import com.thrive.reportSetup.extentReports;
+import com.thrive.reportSetup.ExtentReports;
 import com.thrive.utils.Property;
 
-public class statusMailing {
+public class StatusMailing {
 
 	public static void report_mail() {
 
 		// Create the attachment
 		EmailAttachment attach = new EmailAttachment();
-		attach.setPath(extentReports.reportPath);
+		attach.setPath(ExtentReports.reportPath);
 		attach.setDisposition(EmailAttachment.ATTACHMENT);
 		attach.setDescription("Please find the attached Test Report");
 		attach.setName("Extent Reports");
@@ -64,7 +64,7 @@ public class statusMailing {
 	}
 	
 	public static void pass_msg_mail() {
-		statusMailing setMail = new statusMailing();
+		StatusMailing setMail = new StatusMailing();
 		Email email = setMail.simple_mail_setup();
 		email.setSubject("Test Pass Mail");
 		try {
@@ -76,7 +76,7 @@ public class statusMailing {
 	}
 	
 	public static void fail_msg_mail() {
-		statusMailing setMail = new statusMailing();
+		StatusMailing setMail = new StatusMailing();
 		Email email = setMail.simple_mail_setup();
 		email.setSubject("Test Fail Mail");
 		try {
