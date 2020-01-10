@@ -61,3 +61,17 @@ typings/
 .next
 /target/
 /test-output/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+/bin/
+*.eml
+
+# Maven
+target/
+
+# Eclipse
+.settings/
+.classpath
+.project
