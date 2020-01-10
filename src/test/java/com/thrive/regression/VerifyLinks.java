@@ -1,10 +1,10 @@
 package com.thrive.regression;
 
 import com.thrive.browserSetup.ProjectSetup;
+import com.thrive.reportSetup.ExtentReports;
 import org.testng.annotations.Test;
 
 import com.thrive.pageModels.home_page;
-import com.thrive.reportSetup.ExtentReports;
 
 public class VerifyLinks extends ProjectSetup {
 
