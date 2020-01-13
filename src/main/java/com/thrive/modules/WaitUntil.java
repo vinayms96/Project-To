@@ -12,12 +12,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.Wait;
 
 import com.thrive.reportSetup.ExtentReports;
 
-public class Wait extends ProjectSetup {
+public class WaitUntil extends ProjectSetup {
 
-	static org.openqa.selenium.support.ui.Wait<WebDriver> w;
+	static Wait w;
 
 	public static void waitVisible(int time, WebElement element) {
 		w = new WebDriverWait(driver, time);

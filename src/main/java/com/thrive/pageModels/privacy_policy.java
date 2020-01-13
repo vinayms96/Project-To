@@ -3,7 +3,8 @@ package com.thrive.pageModels;
 import java.io.IOException;
 
 import com.thrive.browserSetup.ProjectSetup;
-import com.thrive.modules.Wait;
+import com.thrive.logger.LoggerConfig;
+import com.thrive.modules.WaitUntil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -40,19 +41,20 @@ public class privacy_policy extends ProjectSetup {
         // Extent Report Child node created
         ExtentReports.setChildTest("Policy Popup Check");
 
-        Wait.waitRefresh(5, policyBlock);
+        WaitUntil.waitRefresh(5, policyBlock);
         if (policyBlock.isDisplayed()) {
             Action.moveClick(accept);
-            System.out.println("Privacy Policy is Accepted");
             ExtentReports.getChildTest().info("Privacy Policy is Accepted");
+            LoggerConfig.getLogger().info("Privacy Policy is Accepted");
         } else {
             try {
-                System.out.println("Privacy Policy is not Accepted");
                 ExtentReports.getChildTest().fail("Privacy Policy is not Accepted",
                         MediaEntityBuilder.createScreenCaptureFromBase64String(Screenshot.shot()).build());
+                LoggerConfig.getLogger().error("Privacy Policy is not Accepted");
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            LoggerConfig.getLogger().error("Privacy Policy is not Accepted");
             Assert.assertTrue(false, "Privacy Policy is not Accepted");
         }
     }

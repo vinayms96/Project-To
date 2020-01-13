@@ -10,6 +10,14 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
     <profiles>
         <profile>
             <id>Regression</id>
@@ -46,13 +54,6 @@
             </build>
         </profile>
     </profiles>
-    <!-- <plugins> <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version> <configuration> <source>1.8</source> <target>1.8</target>
-        <scope>compile</scope> </configuration> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId> <version>3.0.0-M3</version>
-        <configuration> <suiteXmlFiles> <suiteXmlFile>regressionTestNG.xml</suiteXmlFile>
-        </suiteXmlFiles> </configuration> </plugin> </plugins> -->
-
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-server -->
         <dependency>

@@ -2,20 +2,23 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite" verbose="2" parallel="none">
     <listeners>
-        <listener class-name="com.thrive.listeners.TestListners"></listener>
+        <listener class-name="com.thrive.listeners.TestListeners"></listener>
     </listeners>
 
     <test thread-count="5" name="Chrome">
         <parameter name="browser" value="Chrome"></parameter>
         <classes>
-            <class name="com.thrive.browserSetup.ProjectSetup"/>
             <class name="com.thrive.regression.LoginFeature">
                 <methods>
                     <include name="field_verification"/>
                     <include name="user_validation"/>
                 </methods>
             </class>
-            <class name="com.thrive.regression.VerifyLinks"/>
+            <class name="com.thrive.regression.VerifyLinks">
+                <methods>
+                    <include name="verifyAllLinks"/>
+                </methods>
+            </class>
         </classes>
     </test> <!-- Test -->
 
