@@ -1,10 +1,9 @@
 package com.thrive.pageModels;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-import com.thrive.modules.LinkStatusCode;
+import com.thrive.browserSetup.ProjectSetup;
+import com.thrive.logger.LoggerConfig;
+import com.thrive.modules.Action;
+import com.thrive.reportSetup.ExtentReports;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -13,9 +12,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
-import com.thrive.browserSetup.ProjectSetup;
-import com.thrive.modules.Action;
-import com.thrive.reportSetup.ExtentReports;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 public class home_page extends ProjectSetup {
 
@@ -38,13 +37,15 @@ public class home_page extends ProjectSetup {
      * Click on Login link in the Header
      */
     public void clickLoginLink() throws Exception {
+        // Setting the extent child
         ExtentReports.setChildTest("Click LoginLink");
 
-//		actions.moveClick(menu);
-        System.out.println("menu=" + menu);
+        // Clicking on the sign in link
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click();", menu);
 
+        // Logger and Extent report
+        LoggerConfig.getLogger().info("Login link is clicked in Homepage");
         ExtentReports.getChildTest().info("Login link is clicked in Homepage");
     }
 
@@ -53,7 +54,7 @@ public class home_page extends ProjectSetup {
      */
     public void checkMenuLinks() {
 
-        // Created a child node
+        // Setting the extent child
         ExtentReports.setChildTest("Check All the Menu Links");
 
         // Open all Menu links in different Tabs
@@ -63,7 +64,8 @@ public class home_page extends ProjectSetup {
             System.out.println("Check-> " + element.getAttribute("href"));
             String url = element.getAttribute("href");
 //            if (LinkStatusCode.connection(url) == 200) {
-                Action.clickOpenTab(element);
+            Action.clickOpenTab(element);
+            LoggerConfig.getLogger().info("Link: " + element.getAttribute("href") + " is opened");
 //            } else {
 //                System.out.println("Link is Corrupted");
 //                ExtentReports.getChildTest().fail("Link: " + element.getAttribute("href") + " -> is Corrupted");
@@ -74,15 +76,21 @@ public class home_page extends ProjectSetup {
         Iterator<String> wind = windows.iterator();
         String parent = wind.next();
         while (wind.hasNext()) {
+            // Switches to next window
             driver.switchTo().window(wind.next());
             String breadName = breadcrumbs.getText();
             Assert.assertEquals(pageTitle.getText(), breadName);
-            ExtentReports.getChildTest().pass("Menu link is redirected to " + breadName + " page");
 
+            // Result printed to Extent reports and logged
+            ExtentReports.getChildTest().pass("Menu link is redirected to " + breadName + " page");
+            LoggerConfig.getLogger().info("Menu link is redirected to " + breadName + " page");
+
+            // Closes each of the open tabs
             driver.close();
         }
+        // Switches back to the Parent tab
         driver.switchTo().window(parent);
-
+        LoggerConfig.getLogger().info("Control switched back to Parent tab");
     }
 
 }
