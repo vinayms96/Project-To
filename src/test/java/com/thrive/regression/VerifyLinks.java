@@ -9,7 +9,7 @@ import com.thrive.pageModels.home_page;
 
 public class VerifyLinks extends ProjectSetup {
 
-    @Test(description = "Verifying the links redirection")
+    @Test(description = "Verifying the links redirection", groups = {"links.menu"})
     public void verifyAllLinks() {
 
         // Page object references
@@ -20,7 +20,7 @@ public class VerifyLinks extends ProjectSetup {
         LoggerConfig.setLogger(getClass().getName());
 
         // Calling the homepage methods
-        hp.checkMenuLinks();
+        hp.check_menu_links();
 
     }
 

@@ -36,7 +36,7 @@ public class home_page extends ProjectSetup {
     /*
      * Click on Login link in the Header
      */
-    public void clickLoginLink() throws Exception {
+    public void click_login_link() throws Exception {
         // Setting the extent child
         ExtentReports.setChildTest("Click LoginLink");
 
@@ -52,7 +52,7 @@ public class home_page extends ProjectSetup {
     /*
      * Click on Menu links and check if they are redirecting to correct pages
      */
-    public void checkMenuLinks() {
+    public void check_menu_links() {
 
         // Setting the extent child
         ExtentReports.setChildTest("Check All the Menu Links");

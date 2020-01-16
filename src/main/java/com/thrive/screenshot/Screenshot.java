@@ -1,4 +1,4 @@
-package com.thrive.modules;
+package com.thrive.screenshot;
 
 import java.io.File;
 import java.io.IOException;

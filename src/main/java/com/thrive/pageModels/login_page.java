@@ -4,11 +4,12 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import com.thrive.browserSetup.ProjectSetup;
 import com.thrive.logger.LoggerConfig;
 import com.thrive.modules.Action;
-import com.thrive.modules.Screenshot;
+import com.thrive.screenshot.Screenshot;
 import com.thrive.modules.WaitUntil;
 import com.thrive.reportSetup.ExtentReports;
 import com.thrive.utils.ExcelUtils;
 import com.thrive.utils.Property;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -19,6 +20,7 @@ import java.io.IOException;
 
 public class login_page extends ProjectSetup {
     int count;
+    JavascriptExecutor js = (JavascriptExecutor)driver;
 
     /*
      * Login page Elements
@@ -48,15 +50,57 @@ public class login_page extends ProjectSetup {
     }
 
     /*
+        Click on Login button
+     */
+    public void submit(){
+        ExtentReports.setChildTest("Submit Button");
+
+        // Click on Submit button
+        Action.moveClick(sign_Submit);
+        // Logs and Extent report
+        ExtentReports.getChildTest().info("Login Button Clicked");
+        LoggerConfig.getLogger().info("Login Button Clicked");
+    }
+
+    /*
+        Returns Error message if Wrong credentials are entered
+     */
+    public WebElement wrong_error(){
+        return wrongLogin;
+    }
+
+    /*
+        Returns Users fullname after login
+     */
+    public WebElement user_fullname(){
+        return userName;
+    }
+
+    /*
+        Return Email box WebElement
+     */
+    public WebElement email_box(){
+        return emailBox;
+    }
+
+    /*
+        Return Password Box WebElement
+     */
+    public WebElement pass_box(){
+        return passBox;
+    }
+
+    /*
      * Checking error message displayed in Message block
      */
-    public void errorMsgBox() {
+    public void error_msg_box() {
 
         // Extent Report Child node created
         ExtentReports.setChildTest("Error Message Box");
 
         try {
             Action.moveClick(sign_Submit);
+
             LoggerConfig.getLogger().info("Clicked on Login Submit button");
 
             WaitUntil.waitVisible(5, emptyLogErr);
@@ -85,7 +129,7 @@ public class login_page extends ProjectSetup {
     /*
      * Checks if error messages are displayed when fields are empty
      */
-    public void textFieldError() throws Exception {
+    public void text_field_error() throws Exception {
 
         // Extent Report Child node created
         ExtentReports.setChildTest("Text Field error message");
@@ -117,7 +161,7 @@ public class login_page extends ProjectSetup {
      * Login with valid credentials Checks the header for username to verify
      * Successful login
      */
-    public void loginCred(String email, String password) throws Exception {
+    public void login_cred(String email, String password) throws Exception {
 
         // Extent Report Child node created
         ExtentReports.setChildTest("Login with User Credentials");
@@ -131,38 +175,12 @@ public class login_page extends ProjectSetup {
         Action.moveClick(sign_Submit);
         LoggerConfig.getLogger().info("Clicked on Login Submit button");
 
-        try {
-
-            WaitUntil.waitRefresh(5, wrongLogin);
-            Assert.assertEquals(wrongLogin.getAttribute("innerHTML"), ExcelUtils.getData(Property.getProperty("invalidCreds")).get(6));
-
-            // Result printed in Extent Reports and Logged
-            ExtentReports.getChildTest().pass("Invalid Credentials error message is displayed");
-            LoggerConfig.getLogger().info("Invalid Credentials error message is displayed");
-
-        } catch (Exception e) {
-
-            String fullName = ExcelUtils.getData(Property.getProperty("validCreds")).get(1) + " " + ExcelUtils.getData(Property.getProperty("validCreds")).get(2);
-
-            // Waiting for the username to be displayed in the Header
-            Thread.sleep(5000);
-
-            // Verifying if the User name is properly displayed
-            Assert.assertEquals(userName.getText(), fullName);
-
-            // Result printed in Extent Reports and Logged
-            ExtentReports.getChildTest().info("Credentials entered are Valid");
-            LoggerConfig.getLogger().info("Credentials entered are Valid");
-            ExtentReports.getChildTest().pass("Logged in Successfully");
-            LoggerConfig.getLogger().info("Logged in Successfully");
-
-        }
     }
 
     /*
      * Verifying the Field Error messages for individual fields
      */
-    public void everyFieldErrorCheck() {
+    public void each_field_error() {
 
         // Extent Report Child node created
         ExtentReports.setChildTest("Individual Login Field Error Msg");

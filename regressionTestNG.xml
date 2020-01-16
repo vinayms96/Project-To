@@ -4,21 +4,19 @@
     <listeners>
         <listener class-name="com.thrive.listeners.TestListeners"></listener>
     </listeners>
-
     <test thread-count="5" name="Chrome">
         <parameter name="browser" value="Chrome"></parameter>
+        <groups>
+            <run>
+                <exclude name="login.*"/>
+                <exclude name="links.*"/>
+                <include name="privacy.*"/>
+            </run>
+        </groups>
         <classes>
-            <class name="com.thrive.regression.LoginFeature">
-                <methods>
-                    <include name="field_verification"/>
-                    <include name="user_validation"/>
-                </methods>
-            </class>
-            <class name="com.thrive.regression.VerifyLinks">
-                <methods>
-                    <include name="verifyAllLinks"/>
-                </methods>
-            </class>
+            <class name="com.thrive.regression.LoginFeature"/>
+            <class name="com.thrive.regression.VerifyLinks"/>
+            <class name="com.thrive.regression.PrivacyPolicy"/>
         </classes>
     </test> <!-- Test -->
 

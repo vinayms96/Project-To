@@ -1,4 +1,4 @@
-package com.thrive.modules;
+package com.thrive.mailing;
 
 import com.thrive.utils.ExcelUtils;
 import org.apache.commons.mail.DefaultAuthenticator;
@@ -9,7 +9,6 @@ import org.apache.commons.mail.MultiPartEmail;
 import org.apache.commons.mail.SimpleEmail;
 
 import com.thrive.reportSetup.ExtentReports;
-import com.thrive.utils.Property;
 
 public class StatusMailing {
 

@@ -8,7 +8,7 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 
 import com.aventstack.extentreports.MediaEntityBuilder;
-import com.thrive.modules.Screenshot;
+import com.thrive.screenshot.Screenshot;
 import com.thrive.reportSetup.ExtentReports;
 import com.thrive.utils.Property;
 

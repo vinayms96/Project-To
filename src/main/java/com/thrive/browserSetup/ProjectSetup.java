@@ -15,10 +15,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -37,9 +34,9 @@ public class ProjectSetup implements Auto_constant {
         LoggerConfig.getLogger().info("Extent Report setup completed");
 
     }
-
+    
     @BeforeMethod(description = "Checking the browser and launching it", alwaysRun = true)
-//    @Parameters({"browser"})
+    @Parameters({"browser"})
     public void openBrowser(String browser) {
         ProjectSetup.extBrowser = browser;
 

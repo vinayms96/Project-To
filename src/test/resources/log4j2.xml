@@ -8,7 +8,7 @@
         <RollingFile name="File" fileName="${basePath}/${fileName}"
                      filePattern="${basePath}/testLog-%d{yyyy-MM-dd}.log">
             <PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
-            <SizeBasedTriggeringPolicy size="1024"/>
+            <SizeBasedTriggeringPolicy size="500"/>
         </RollingFile>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>

@@ -13,11 +13,11 @@ import org.testng.Assert;
 
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.thrive.modules.Action;
-import com.thrive.modules.Screenshot;
+import com.thrive.screenshot.Screenshot;
 import com.thrive.reportSetup.ExtentReports;
 
 public class privacy_policy extends ProjectSetup {
-    
+
     // Page Elements
     @FindBy(id = "gdpr-notice-cookie-block")
     private WebElement policyBlock;
@@ -25,6 +25,10 @@ public class privacy_policy extends ProjectSetup {
     private WebElement learnMore;
     @FindBy(xpath = "//div[@id='gdpr-notice-cookie-block']/div/div/button/span")
     private WebElement accept;
+    @FindBy(xpath = "//aside //h1")
+    private WebElement popup;
+    @FindBy(xpath = "//aside //footer/button/span")
+    private WebElement pop_accept;
 
     /*
      * Page Constructor Constructor Sets the driver to Current page
@@ -57,5 +61,32 @@ public class privacy_policy extends ProjectSetup {
             LoggerConfig.getLogger().error("Privacy Policy is not Accepted");
             Assert.assertTrue(false, "Privacy Policy is not Accepted");
         }
+    }
+
+    /*
+     * Checks if Privacy Popup is displayed or not
+     * If displayed it is accepted
+     */
+    public void check_popup() {
+
+        ExtentReports.setChildTest("Check Privacy Popup");
+
+        // Waits till the Privacy block is displayed
+        WaitUntil.waitRefresh(5, policyBlock);
+        WaitUntil.waitVisible(5, popup);
+        Assert.assertTrue(popup.isDisplayed());
+
+        // Accepts popup
+        pop_accept.click();
+
+        // Result reported in Extent report and Logged
+        ExtentReports.getChildTest().pass("Privacy popup is displayed and Accepted");
+        LoggerConfig.getLogger().info("Privacy popup is displayed and Accepted");
+
+    }
+
+    public void privacy_login() {
+        // Setting up Child Test
+        ExtentReports.setChildTest("");
     }
 }

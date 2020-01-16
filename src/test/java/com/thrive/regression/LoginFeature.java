@@ -2,22 +2,24 @@ package com.thrive.regression;
 
 import com.thrive.browserSetup.ProjectSetup;
 import com.thrive.logger.LoggerConfig;
-import com.thrive.utils.ExcelUtils;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-
+import com.thrive.modules.WaitUntil;
 import com.thrive.pageModels.home_page;
 import com.thrive.pageModels.login_page;
 import com.thrive.pageModels.privacy_policy;
 import com.thrive.reportSetup.ExtentReports;
+import com.thrive.utils.ExcelUtils;
+import com.thrive.utils.Property;
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 public class LoginFeature extends ProjectSetup {
 
-    @Test(description = "Checking the functionality of the Login Feature")
+    @Test(description = "Checking the functionality of the Login Feature", groups = {"login.field"})
     public void field_verification() throws Exception {
 
         // Created Extent Test reference and Logger is set
-        ExtentReports.setExtentTest(ProjectSetup.extBrowser + ": Login Feature");
+        ExtentReports.setExtentTest(ProjectSetup.extBrowser + ": Login " + "Feature");
         LoggerConfig.setLogger(getClass().getName());
 
         // Page model objects
@@ -28,17 +30,17 @@ public class LoginFeature extends ProjectSetup {
         // Check if Privacy Policy is displayed
         privacy.policy_check();
         // Clicks on Sign in link
-        hp.clickLoginLink();
+        hp.click_login_link();
         // Checking the error msg box
-        slp.errorMsgBox();
+        slp.error_msg_box();
         // Checks the Email and Password field errors
-        slp.textFieldError();
+        slp.text_field_error();
         // Checks the Field error individually
-        slp.everyFieldErrorCheck();
+        slp.each_field_error();
 
     }
 
-    @Test(description = "User validation is performed", dataProvider = "getUserData")
+    @Test(description = "User validation is performed", dataProvider = "getUserData",groups = {"login.user"})
     public void user_validation(String email, String pass) throws Exception {
 
         // Setting the Extent test reference and Logger is set
@@ -53,20 +55,43 @@ public class LoginFeature extends ProjectSetup {
         // Check if Privacy Policy is displayed
         privacy.policy_check();
         // Click on Sign-in link
-        hp.clickLoginLink();
-
+        hp.click_login_link();
         // Verifies with valid login credentials
-        slp.loginCred(email, pass);
+        slp.login_cred(email, pass);
+
+        try {
+            WaitUntil.waitRefresh(5, slp.wrong_error());
+            Assert.assertEquals(slp.wrong_error().getAttribute("innerHTML"),
+                    ExcelUtils.getData(Property.getProperty("invalidCreds")).get(6));
+
+            // Result printed in Extent Reports and Logged
+            ExtentReports.getChildTest().pass("Invalid Credentials error message is displayed");
+            LoggerConfig.getLogger().info("Invalid Credentials error message is displayed");
+        } catch (Exception e) {
+            String fullName = ExcelUtils.getData(Property.getProperty("validCreds")).get(1) + " " + ExcelUtils.getData(Property.getProperty("validCreds")).get(2);
+
+            // Waiting for the username to be displayed in the Header
+            Thread.sleep(5000);
+
+            // Verifying if the User name is properly displayed
+            Assert.assertEquals(slp.user_fullname().getText(), fullName);
+
+            // Result printed in Extent Reports and Logged
+            ExtentReports.getChildTest().info("Credentials entered are Valid");
+            LoggerConfig.getLogger().info("Credentials entered are Valid");
+            ExtentReports.getChildTest().pass("Logged in Successfully");
+            LoggerConfig.getLogger().info("Logged in Successfully");
+        }
 
     }
 
     @DataProvider
     public Object[][] getUserData() {
         Object[][] obj = new Object[2][2];
-        obj[0][0] = ExcelUtils.getData("invalidLogin").get(3);
-        obj[0][1] = ExcelUtils.getData("invalidLogin").get(4);
-        obj[1][0] = ExcelUtils.getData("validLogin").get(3);
-        obj[1][1] = ExcelUtils.getData("validLogin").get(4);
+        obj[0][0] = ExcelUtils.getData(Property.getProperty("invalidCreds")).get(3);
+        obj[0][1] = ExcelUtils.getData(Property.getProperty("invalidCreds")).get(4);
+        obj[1][0] = ExcelUtils.getData(Property.getProperty("validCreds")).get(3);
+        obj[1][1] = ExcelUtils.getData(Property.getProperty("validCreds")).get(4);
         return obj;
     }
 }
