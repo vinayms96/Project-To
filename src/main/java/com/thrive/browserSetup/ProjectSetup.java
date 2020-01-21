@@ -5,6 +5,7 @@ import com.thrive.logger.LoggerConfig;
 import com.thrive.modules.DateFunc;
 import com.thrive.reportSetup.ExtentReports;
 import com.thrive.utils.Auto_constant;
+import com.thrive.utils.ExcelUtils;
 import com.thrive.utils.Property;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -33,12 +34,16 @@ public class ProjectSetup implements Auto_constant {
         ExtentReports.attachReport();
         LoggerConfig.getLogger().info("Extent Report setup completed");
 
+        // Gets the keys from excel sheet
+        ExcelUtils.get_keys("features");
+
     }
-    
+
     @BeforeMethod(description = "Checking the browser and launching it", alwaysRun = true)
     @Parameters({"browser"})
     public void openBrowser(String browser) {
-        ProjectSetup.extBrowser = browser;
+        ProjectSetup.extBrowser = System.getProperty("browser");
+//        ProjectSetup.extBrowser = browser;
 
         // Setting the logger
         LoggerConfig.setLogger(getClass().getName());
@@ -68,11 +73,14 @@ public class ProjectSetup implements Auto_constant {
          * This assigns the browser driver to use for the extent reports for setting
          * child node
          */
-        if (browser.equalsIgnoreCase("Chrome")) {
+//        if (browser.equalsIgnoreCase("Chrome")) {
+        if (System.getProperty("browser").equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().arch64().setup();
             driver = new ChromeDriver(chOptions);
             LoggerConfig.getLogger().info("Chrome Browser is invoked");
-        } else if (browser.equalsIgnoreCase("Firefox")) {
+        }
+//            else if (browser.equalsIgnoreCase("Firefox")) {
+        else if (System.getProperty("browser").equalsIgnoreCase("Firefox")) {
             WebDriverManager.firefoxdriver().arch64().setup();
             driver = new FirefoxDriver(fiOptions);
             LoggerConfig.getLogger().info("Firefox Browser is invoked");
@@ -80,8 +88,7 @@ public class ProjectSetup implements Auto_constant {
         driver.manage().window().maximize();
 
         // Invoking the URL to test
-        driver.get(Property.getProperty("url"));
-        LoggerConfig.getLogger().info("The requested url is hit -> " + Property.getProperty("url"));
+        ServerAuth.auth();
 
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }

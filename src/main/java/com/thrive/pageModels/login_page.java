@@ -106,7 +106,7 @@ public class login_page extends ProjectSetup {
             WaitUntil.waitVisible(5, emptyLogErr);
 
             // Comparing Error message
-            Assert.assertEquals(emptyLogErr.getAttribute("innerHTML"), ExcelUtils.getData(Property.getProperty("validCreds")).get(6));
+            Assert.assertEquals(emptyLogErr.getAttribute("innerHTML"), ExcelUtils.getData(Property.getProperty("validCreds")).get("error_box"));
             System.out.println("Login and Password error message is displayed");
 
             // Result printed in Extent Reports and Logged
@@ -186,14 +186,14 @@ public class login_page extends ProjectSetup {
         ExtentReports.setChildTest("Individual Login Field Error Msg");
 
         // verify the error msg displayed in Password field
-        emailBox.sendKeys(ExcelUtils.getData(Property.getProperty("validCreds")).get(3));
+        emailBox.sendKeys(ExcelUtils.getData(Property.getProperty("validCreds")).get("email"));
         LoggerConfig.getLogger().info("Email id entered in the field");
 
         Action.moveClick(sign_Submit);
         LoggerConfig.getLogger().info("Clicked on Login Submit button");
 
         // Compare the Error message
-        Assert.assertEquals(pass_error.getText(), ExcelUtils.getData(Property.getProperty("validCreds")).get(5));
+        Assert.assertEquals(pass_error.getText(), ExcelUtils.getData(Property.getProperty("validCreds")).get("error_message"));
 
         // Result is printed in Extent Reports and Logged
         ExtentReports.getChildTest().pass("Error message is displayed for Password Field");
@@ -203,14 +203,14 @@ public class login_page extends ProjectSetup {
         LoggerConfig.getLogger().info("Email field text is cleared");
 
         // Verify the error msg displayed in Email field
-        passBox.sendKeys(ExcelUtils.getData(Property.getProperty("validCreds")).get(4));
+        passBox.sendKeys(ExcelUtils.getData(Property.getProperty("validCreds")).get("password"));
         LoggerConfig.getLogger().info("Password entered in the field");
 
         Action.moveClick(sign_Submit);
         LoggerConfig.getLogger().info("Clicked on Login Submit button");
 
         // Compare the Error message
-        Assert.assertEquals(email_error.getText(), ExcelUtils.getData(Property.getProperty("validCreds")).get(5));
+        Assert.assertEquals(email_error.getText(), ExcelUtils.getData(Property.getProperty("validCreds")).get("error_message"));
 
         // Result printed in Extent report and logged
         ExtentReports.getChildTest().pass("Error message is displayed for Email Field");
@@ -220,4 +220,27 @@ public class login_page extends ProjectSetup {
         LoggerConfig.getLogger().info("Password field text is cleared");
 
     }
+
+    public String pageTitle(){
+        WaitUntil.waitRefresh(5, emailBox);
+        return driver.getTitle();
+    }
+
+    public void user_session(String title){
+        // Setting up Extent child
+        ExtentReports.setChildTest("Delete Session Cookie and test login");
+        LoggerConfig.getLogger().info("Delete Session Cookie and test login");
+
+        // Delete the session cookie
+        driver.manage().deleteCookieNamed(ExcelUtils.getData(Property.getProperty("validCreds")).get("cookie_name"));
+        LoggerConfig.getLogger().info("Session Cookie is deleted");
+        // Refresh the page after cookie deletion
+        driver.navigate().refresh();
+
+        // Comparing the PageTitles
+        Assert.assertEquals(driver.getTitle(),title);
+        ExtentReports.getChildTest().pass("The Session is ended successfully");
+        LoggerConfig.getLogger().info("The Session is ended successfully");
+    }
+
 }

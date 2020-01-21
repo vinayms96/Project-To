@@ -1,16 +1,15 @@
 package com.thrive.listeners;
 
-import java.io.IOException;
-
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.thrive.logger.LoggerConfig;
+import com.thrive.reportSetup.ExtentReports;
+import com.thrive.screenshot.Screenshot;
+import com.thrive.utils.Property;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-import com.aventstack.extentreports.MediaEntityBuilder;
-import com.thrive.screenshot.Screenshot;
-import com.thrive.reportSetup.ExtentReports;
-import com.thrive.utils.Property;
+import java.io.IOException;
 
 public class TestListeners implements ITestListener {
 

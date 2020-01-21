@@ -72,11 +72,11 @@ public class privacy_policy extends ProjectSetup {
         ExtentReports.setChildTest("Check Privacy Popup");
 
         // Waits till the Privacy block is displayed
-        WaitUntil.waitRefresh(5, policyBlock);
         WaitUntil.waitVisible(5, popup);
         Assert.assertTrue(popup.isDisplayed());
 
         // Accepts popup
+        WaitUntil.waitClick(5, pop_accept);
         pop_accept.click();
 
         // Result reported in Extent report and Logged

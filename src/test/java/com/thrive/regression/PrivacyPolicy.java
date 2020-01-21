@@ -27,7 +27,8 @@ public class PrivacyPolicy extends ProjectSetup {
         //Click on Sign in link
         home.click_login_link();
         // Enter the Login fields and click on Submit
-        login.login_cred(ExcelUtils.getData(Property.getProperty("validCreds")).get(3), ExcelUtils.getData(Property.getProperty("validCreds")).get(4));
+        login.login_cred(ExcelUtils.getData(Property.getProperty("validCreds")).get("email"),
+                ExcelUtils.getData(Property.getProperty("validCreds")).get("password"));
         // Check if Privacy popup is displayed
         policy.check_popup();
         // Clear the Email and Password Box

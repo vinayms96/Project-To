@@ -40,7 +40,7 @@ public class LoginFeature extends ProjectSetup {
 
     }
 
-    @Test(description = "User validation is performed", dataProvider = "getUserData",groups = {"login.user"})
+    @Test(description = "User validation is performed", dataProvider = "getUserData", groups = {"login.user"})
     public void user_validation(String email, String pass) throws Exception {
 
         // Setting the Extent test reference and Logger is set
@@ -62,13 +62,13 @@ public class LoginFeature extends ProjectSetup {
         try {
             WaitUntil.waitRefresh(5, slp.wrong_error());
             Assert.assertEquals(slp.wrong_error().getAttribute("innerHTML"),
-                    ExcelUtils.getData(Property.getProperty("invalidCreds")).get(6));
+                    ExcelUtils.getData(Property.getProperty("invalidCreds")).get("error_box"));
 
             // Result printed in Extent Reports and Logged
             ExtentReports.getChildTest().pass("Invalid Credentials error message is displayed");
             LoggerConfig.getLogger().info("Invalid Credentials error message is displayed");
         } catch (Exception e) {
-            String fullName = ExcelUtils.getData(Property.getProperty("validCreds")).get(1) + " " + ExcelUtils.getData(Property.getProperty("validCreds")).get(2);
+            String fullName = ExcelUtils.getData(Property.getProperty("validCreds")).get("first_name") + " " + ExcelUtils.getData(Property.getProperty("validCreds")).get("last_name");
 
             // Waiting for the username to be displayed in the Header
             Thread.sleep(5000);
@@ -88,10 +88,34 @@ public class LoginFeature extends ProjectSetup {
     @DataProvider
     public Object[][] getUserData() {
         Object[][] obj = new Object[2][2];
-        obj[0][0] = ExcelUtils.getData(Property.getProperty("invalidCreds")).get(3);
-        obj[0][1] = ExcelUtils.getData(Property.getProperty("invalidCreds")).get(4);
-        obj[1][0] = ExcelUtils.getData(Property.getProperty("validCreds")).get(3);
-        obj[1][1] = ExcelUtils.getData(Property.getProperty("validCreds")).get(4);
+        obj[0][0] = ExcelUtils.getData(Property.getProperty("invalidCreds")).get("email");
+        obj[0][1] = ExcelUtils.getData(Property.getProperty("invalidCreds")).get("password");
+        obj[1][0] = ExcelUtils.getData(Property.getProperty("validCreds")).get("email");
+        obj[1][1] = ExcelUtils.getData(Property.getProperty("validCreds")).get("password");
         return obj;
     }
+
+    @Test(description = "Deleting the session cookie and check user session", groups = {"login.session"})
+    public void user_session() throws Exception {
+
+        // Setting the Extent test reference and Logger is set
+        ExtentReports.setExtentTest(ProjectSetup.extBrowser + ": User Session");
+        LoggerConfig.setLogger(getClass().getName());
+
+        // Page Model Objects
+        home_page home = new home_page(driver);
+        login_page slp = new login_page(driver);
+
+        // Clicks on Login link
+        home.click_login_link();
+        // Getting the page title before logging in
+        String pageTitle = slp.pageTitle();
+        // Logs into user account
+        slp.login_cred(ExcelUtils.getData(Property.getProperty("validCreds")).get("email"),
+                ExcelUtils.getData(Property.getProperty("validCreds")).get("password"));
+        // Deleting cookie and comparing the title
+        slp.user_session(pageTitle);
+
+    }
 }
+

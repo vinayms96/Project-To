@@ -3,16 +3,14 @@ package com.thrive.modules;
 import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 import com.thrive.browserSetup.ProjectSetup;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.*;
 
 import com.thrive.reportSetup.ExtentReports;
 
@@ -23,6 +21,11 @@ public class WaitUntil extends ProjectSetup {
 	public static void waitVisible(int time, WebElement element) {
 		w = new WebDriverWait(driver, time);
 		w.until(ExpectedConditions.visibilityOf(element));
+	}
+
+	public static  void waitClick(int time, WebElement element){
+		w = new WebDriverWait(driver, time);
+		w.until(ExpectedConditions.elementToBeClickable(element));
 	}
 
 	public static void waitVisibleAll(int time, List<WebElement> element) {

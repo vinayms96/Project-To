@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>ProjectTO</groupId>
-    <artifactId>TO</artifactId>
+    <artifactId>ProjectTO</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Thrive</name>
     <properties>
@@ -13,7 +13,11 @@
     <build>
         <resources>
             <resource>
-                <directory>src/test/resources</directory>
+                <directory>/Resources</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>/src/test/resources</directory>
                 <filtering>true</filtering>
             </resource>
         </resources>
@@ -158,6 +162,12 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>2.13.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.18</version>
         </dependency>
     </dependencies>
 </project>

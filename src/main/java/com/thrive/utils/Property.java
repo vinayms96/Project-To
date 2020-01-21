@@ -9,7 +9,7 @@ public class Property implements Auto_constant {
 	public static String getProperty(String key) {
 		prop = new Properties();
 		try {
-			prop.load(new FileInputStream(new File(System.getProperty("user.dir")+"/src/main/resources/sys.properties")));
+			prop.load(new FileInputStream(new File(propPath)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

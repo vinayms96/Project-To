@@ -36,7 +36,7 @@ public class home_page extends ProjectSetup {
     /*
      * Click on Login link in the Header
      */
-    public void click_login_link() throws Exception {
+    public void click_login_link() {
         // Setting the extent child
         ExtentReports.setChildTest("Click LoginLink");
 

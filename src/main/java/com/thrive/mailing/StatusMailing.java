@@ -26,11 +26,12 @@ public class StatusMailing {
         email.setHostName("smtp.googlemail.com");
         email.setSmtpPort(465);
         email.setSSLOnConnect(true);
-        email.setAuthenticator(new DefaultAuthenticator(ExcelUtils.getData("emails").get(3), ExcelUtils.getData("emails").get(4)));
+        email.setAuthenticator(new DefaultAuthenticator(ExcelUtils.getData("emails").get("email"),
+                ExcelUtils.getData("emails").get("password")));
 
         try {
-            email.setFrom(ExcelUtils.getData("emails").get(3));
-            email.addTo(ExcelUtils.getData("emails").get(7));
+            email.setFrom(ExcelUtils.getData("emails").get("email"));
+            email.addTo(ExcelUtils.getData("emails").get("password"));
             email.attach(attach);
         } catch (EmailException e) {
             e.printStackTrace();
@@ -54,9 +55,10 @@ public class StatusMailing {
         email.setSmtpPort(465);
         email.setSSLOnConnect(true);
         email.setAuthenticator(
-                new DefaultAuthenticator(ExcelUtils.getData("emails").get(3), ExcelUtils.getData("emails").get(4)));
+                new DefaultAuthenticator(ExcelUtils.getData("emails").get("email"),
+                        ExcelUtils.getData("emails").get("password")));
         try {
-            email.addTo(ExcelUtils.getData("emails").get(7));
+            email.addTo(ExcelUtils.getData("emails").get("alt_email"));
         } catch (EmailException e) {
             e.printStackTrace();
         }
