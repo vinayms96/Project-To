@@ -2,13 +2,12 @@
 <Configuration status="WARN">
     <Properties>
         <Property name="basePath" value="./Logs"/>
-        <Property name="fileName" value="testLog.log"/>
     </Properties>
     <Appenders>
-        <RollingFile name="File" fileName="${basePath}/${fileName}"
-                     filePattern="${basePath}/testLog-%d{yyyy-MM-dd}.log">
+        <RollingFile name="File" fileName="${basePath}/testLog-${date:yyyy-MM-dd_HH:mm:ss}.log"
+                     filePattern="${basePath}/testLog-%d{yyyy-MM-dd_HH:mm:ss}-(%i).log">
             <PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
-            <SizeBasedTriggeringPolicy size="500"/>
+            <SizeBasedTriggeringPolicy size="100MB"/>
         </RollingFile>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>

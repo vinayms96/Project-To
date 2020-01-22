@@ -1,16 +1,29 @@
 package com.thrive.regression;
 
-import com.thrive.logger.LoggerConfig;
-import com.thrive.modules.LinkStatusCode;
+import com.thrive.utils.Auto_constant;
 import com.thrive.utils.ExcelUtils;
+import com.thrive.utils.Property;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
-public class test1 {
+public class test1 implements Auto_constant {
 
-	public static void main(String[] args) {
-//		for(int i=1;i<7;i++) {
-//			System.out.println(ExcelUtils.getData("login").get(i));
+    public static void main(String[] args) {
+
+//		System.out.println(System.getProperty("user.dir"));
+//		Database db = new Database();
+//		db.connectDB();
+//		DatabaseSetup.get_test_data("validLogin");
+//		for(int i=0; i<DatabaseSetup.data.size(); i++) {
+//			System.out.println(DatabaseSetup.data.get(i));
 //		}
-		System.out.println(LinkStatusCode.connection("https://www.google.com"));
-	}
+//		db.closeDB();
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://codilar:test@thrive-test.codilar.in");
+        System.out.println(driver.getCurrentUrl());
+
+    }
 
 }

@@ -1,20 +1,19 @@
 package com.thrive.pageModels;
 
-import java.io.IOException;
-
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.thrive.browserSetup.ProjectSetup;
 import com.thrive.logger.LoggerConfig;
+import com.thrive.modules.Action;
 import com.thrive.modules.WaitUntil;
+import com.thrive.reportSetup.ExtentReports;
+import com.thrive.screenshot.Screenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
-import com.aventstack.extentreports.MediaEntityBuilder;
-import com.thrive.modules.Action;
-import com.thrive.screenshot.Screenshot;
-import com.thrive.reportSetup.ExtentReports;
+import java.io.IOException;
 
 public class privacy_policy extends ProjectSetup {
 
@@ -38,9 +37,16 @@ public class privacy_policy extends ProjectSetup {
     }
 
     /*
+        Returns Privacy Footer Popup WebElement
+     */
+    public WebElement privacy_block(){
+        return policyBlock;
+    }
+
+    /*
      * Check if Privacy Policy popup is displayed if yes then its closed
      */
-    public void policy_check() {
+    public void policy_accept() {
 
         // Extent Report Child node created
         ExtentReports.setChildTest("Policy Popup Check");
@@ -52,14 +58,14 @@ public class privacy_policy extends ProjectSetup {
             LoggerConfig.getLogger().info("Privacy Policy is Accepted");
         } else {
             try {
-                ExtentReports.getChildTest().fail("Privacy Policy is not Accepted",
+                ExtentReports.getChildTest().info("Privacy Policy is not Displayed",
                         MediaEntityBuilder.createScreenCaptureFromBase64String(Screenshot.shot()).build());
-                LoggerConfig.getLogger().error("Privacy Policy is not Accepted");
+                LoggerConfig.getLogger().info("Privacy Policy is not Displayed");
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            LoggerConfig.getLogger().error("Privacy Policy is not Accepted");
-            Assert.assertTrue(false, "Privacy Policy is not Accepted");
+            LoggerConfig.getLogger().info("Privacy Policy is not Accepted");
+            Assert.assertTrue(false, "Privacy Policy is not Displayed");
         }
     }
 
