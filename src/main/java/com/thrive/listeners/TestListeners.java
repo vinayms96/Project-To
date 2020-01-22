@@ -26,10 +26,6 @@ public class TestListeners implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
-
-		// Setting the logger
-		LoggerConfig.setLogger(getClass().getName());
-
         ITestListener.super.onTestFailure(result);
         try {
             ExtentReports.getChildTest().fail("The Test Case '" + result.getName() + "' has Failed",

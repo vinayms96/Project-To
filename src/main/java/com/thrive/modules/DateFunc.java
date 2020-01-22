@@ -4,17 +4,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateFunc {
-	
-	public static String getReportDate() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("E dd-MM hh:mm:ssa");
-		Date date = new Date();
-		return dateFormat.format(date);
-	}
-	
-	public static String getShotDate() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("E dd-MM hh:mm a");
-		Date date = new Date();
-		return dateFormat.format(date);
-	}
-	
+
+    public static String getReportDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd-MM hh:mm:ssa");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    public static void getLogDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd-MM hh:mm a");
+        System.setProperty("log_date", dateFormat.format(new Date()));
+    }
+
 }

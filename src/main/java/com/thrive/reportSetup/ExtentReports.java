@@ -24,7 +24,7 @@ public class ExtentReports extends ProjectSetup implements Auto_constant {
 		extent.setSystemInfo("User", "Vinay M S");
 		extent.setSystemInfo("Operating System", "Ubuntu Linux");
 		extent.setSystemInfo("Java version", "Jdk 1.8.0");
-		extent.setSystemInfo("Browsers", "Chrome & Firefox");
+		extent.setSystemInfo("Browser", System.getProperty("browser"));
 
 		// Attaching the Html Report to the extent reference and Configuring the Report
 		reporter = new ExtentHtmlReporter(reportPath);

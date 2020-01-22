@@ -2,6 +2,7 @@ package com.thrive.regression;
 
 import com.thrive.browserSetup.ProjectSetup;
 import com.thrive.logger.LoggerConfig;
+import com.thrive.modules.WaitUntil;
 import com.thrive.pageModels.home_page;
 import com.thrive.pageModels.login_page;
 import com.thrive.pageModels.privacy_policy;
@@ -27,8 +28,10 @@ public class PrivacyPolicy extends ProjectSetup {
         //Click on Sign in link
         home.click_login_link();
         // Enter the Login fields and click on Submit
-        login.login_cred(ExcelUtils.getData(Property.getProperty("validCreds")).get("email"),
-                ExcelUtils.getData(Property.getProperty("validCreds")).get("password"));
+        WaitUntil.waitVisible(5, policy.privacy_block());
+        login.email_box().sendKeys(ExcelUtils.getData("validLogin").get("email"));
+        login.pass_box().sendKeys(ExcelUtils.getData("validLogin").get("password"));
+        login.submit();
         // Check if Privacy popup is displayed
         policy.check_popup();
         // Clear the Email and Password Box

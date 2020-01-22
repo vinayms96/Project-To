@@ -35,7 +35,7 @@ public class ProjectSetup implements Auto_constant {
         LoggerConfig.getLogger().info("Extent Report setup completed");
 
         // Gets the keys from excel sheet
-        ExcelUtils.get_keys("features");
+        ExcelUtils.get_keys();
 
     }
 

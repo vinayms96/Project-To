@@ -16,7 +16,7 @@ public class VerifyLinks extends ProjectSetup {
         home_page hp = new home_page(driver);
 
         // Created Extent Test reference and Logger is set
-        ExtentReports.setExtentTest(ProjectSetup.extBrowser + ": Verify Links");
+        ExtentReports.setExtentTest("Verify Links");
         LoggerConfig.setLogger(getClass().getName());
 
         // Calling the homepage methods

@@ -15,11 +15,11 @@ import org.testng.annotations.Test;
 
 public class LoginFeature extends ProjectSetup {
 
-    @Test(description = "Checking the functionality of the Login Feature", groups = {"login.field"})
+    @Test(description = "Checking the functionality of the Login Feature", groups = {"login.field"}, priority = 0)
     public void field_verification() throws Exception {
 
         // Created Extent Test reference and Logger is set
-        ExtentReports.setExtentTest(ProjectSetup.extBrowser + ": Login " + "Feature");
+        ExtentReports.setExtentTest("Field Verification");
         LoggerConfig.setLogger(getClass().getName());
 
         // Page model objects
@@ -28,7 +28,7 @@ public class LoginFeature extends ProjectSetup {
         privacy_policy privacy = new privacy_policy(driver);
 
         // Check if Privacy Policy is displayed
-        privacy.policy_check();
+        privacy.policy_accept();
         // Clicks on Sign in link
         hp.click_login_link();
         // Checking the error msg box
@@ -40,20 +40,19 @@ public class LoginFeature extends ProjectSetup {
 
     }
 
-    @Test(description = "User validation is performed", dataProvider = "getUserData", groups = {"login.user"})
+    @Test(description = "User validation is performed", dataProvider = "getUserData", groups = {"login.user"},
+            priority = 1)
     public void user_validation(String email, String pass) throws Exception {
 
         // Setting the Extent test reference and Logger is set
-        ExtentReports.setExtentTest(ProjectSetup.extBrowser + ": Login Validation");
+        ExtentReports.setExtentTest("Login Validation");
         LoggerConfig.setLogger(getClass().getName());
 
         // Page model objects
         home_page hp = new home_page(driver);
         login_page slp = new login_page(driver);
         privacy_policy privacy = new privacy_policy(driver);
-
-        // Check if Privacy Policy is displayed
-        privacy.policy_check();
+        
         // Click on Sign-in link
         hp.click_login_link();
         // Verifies with valid login credentials
@@ -62,13 +61,13 @@ public class LoginFeature extends ProjectSetup {
         try {
             WaitUntil.waitRefresh(5, slp.wrong_error());
             Assert.assertEquals(slp.wrong_error().getAttribute("innerHTML"),
-                    ExcelUtils.getData(Property.getProperty("invalidCreds")).get("error_box"));
+                    ExcelUtils.getData("invalidLogin").get("error_box"));
 
             // Result printed in Extent Reports and Logged
             ExtentReports.getChildTest().pass("Invalid Credentials error message is displayed");
             LoggerConfig.getLogger().info("Invalid Credentials error message is displayed");
         } catch (Exception e) {
-            String fullName = ExcelUtils.getData(Property.getProperty("validCreds")).get("first_name") + " " + ExcelUtils.getData(Property.getProperty("validCreds")).get("last_name");
+            String fullName = ExcelUtils.getData("validLogin").get("first_name") + " " + ExcelUtils.getData("validLogin").get("last_name");
 
             // Waiting for the username to be displayed in the Header
             Thread.sleep(5000);
@@ -77,8 +76,6 @@ public class LoginFeature extends ProjectSetup {
             Assert.assertEquals(slp.user_fullname().getText(), fullName);
 
             // Result printed in Extent Reports and Logged
-            ExtentReports.getChildTest().info("Credentials entered are Valid");
-            LoggerConfig.getLogger().info("Credentials entered are Valid");
             ExtentReports.getChildTest().pass("Logged in Successfully");
             LoggerConfig.getLogger().info("Logged in Successfully");
         }
@@ -88,18 +85,18 @@ public class LoginFeature extends ProjectSetup {
     @DataProvider
     public Object[][] getUserData() {
         Object[][] obj = new Object[2][2];
-        obj[0][0] = ExcelUtils.getData(Property.getProperty("invalidCreds")).get("email");
-        obj[0][1] = ExcelUtils.getData(Property.getProperty("invalidCreds")).get("password");
-        obj[1][0] = ExcelUtils.getData(Property.getProperty("validCreds")).get("email");
-        obj[1][1] = ExcelUtils.getData(Property.getProperty("validCreds")).get("password");
+        obj[0][0] = ExcelUtils.getData("invalidLogin").get("email");
+        obj[0][1] = ExcelUtils.getData("invalidLogin").get("password");
+        obj[1][0] = ExcelUtils.getData("validLogin").get("email");
+        obj[1][1] = ExcelUtils.getData("validLogin").get("password");
         return obj;
     }
 
-    @Test(description = "Deleting the session cookie and check user session", groups = {"login.session"})
+    @Test(description = "Deleting the session cookie and check user session", groups = {"login.session"}, priority = 2)
     public void user_session() throws Exception {
 
         // Setting the Extent test reference and Logger is set
-        ExtentReports.setExtentTest(ProjectSetup.extBrowser + ": User Session");
+        ExtentReports.setExtentTest("User Session");
         LoggerConfig.setLogger(getClass().getName());
 
         // Page Model Objects
@@ -108,13 +105,11 @@ public class LoginFeature extends ProjectSetup {
 
         // Clicks on Login link
         home.click_login_link();
-        // Getting the page title before logging in
-        String pageTitle = slp.pageTitle();
         // Logs into user account
-        slp.login_cred(ExcelUtils.getData(Property.getProperty("validCreds")).get("email"),
-                ExcelUtils.getData(Property.getProperty("validCreds")).get("password"));
+        slp.login_cred(ExcelUtils.getData("validLogin").get("email"),
+                ExcelUtils.getData("validLogin").get("password"));
         // Deleting cookie and comparing the title
-        slp.user_session(pageTitle);
+        slp.user_session();
 
     }
 }
