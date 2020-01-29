@@ -1,51 +1,45 @@
 package com.thrive.mailing;
 
-import com.thrive.utils.ExcelUtils;
-import org.apache.commons.mail.DefaultAuthenticator;
-import org.apache.commons.mail.Email;
-import org.apache.commons.mail.EmailAttachment;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.MultiPartEmail;
-import org.apache.commons.mail.SimpleEmail;
-
+import com.thrive.funcInterfaces.logs;
+import com.thrive.logger.LoggerConfig;
 import com.thrive.reportSetup.ExtentReports;
+import com.thrive.utils.ExcelUtils;
+import org.apache.commons.mail.*;
+
+import static com.thrive.browserSetup.ProjectSetup.reportDate;
 
 public class StatusMailing {
 
     public static void report_mail() {
 
+        // Sets the Logger
+        LoggerConfig.setLogger(StatusMailing.class.getName());
+
         // Create the attachment
         EmailAttachment attach = new EmailAttachment();
         attach.setPath(ExtentReports.reportPath);
         attach.setDisposition(EmailAttachment.ATTACHMENT);
-        attach.setDescription("Please find the attached Test Report");
-        attach.setName("Extent Reports");
+        attach.setName("Extent Reports " + reportDate + ".html");
 
         // Create the email message
         MultiPartEmail email = new MultiPartEmail();
-        email.setHostName("smtp.googlemail.com");
+        email.setHostName("smtp.gmail.com");
         email.setSmtpPort(465);
         email.setSSLOnConnect(true);
         email.setAuthenticator(new DefaultAuthenticator(ExcelUtils.getData("emails").get("email"),
                 ExcelUtils.getData("emails").get("password")));
-
-        try {
-            email.setFrom(ExcelUtils.getData("emails").get("email"));
-            email.addTo(ExcelUtils.getData("emails").get("password"));
-            email.attach(attach);
-        } catch (EmailException e) {
-            e.printStackTrace();
-        }
-
         email.setBounceAddress("vinay@codilar.com");
-        email.setSubject("Test Fail Report");
+        email.setSubject("Test Report Mail " + reportDate);
 
         try {
+            email.setMsg("Please find the attached Test Report");
+            email.setFrom(ExcelUtils.getData("emails").get("email"));
+            email.addTo(ExcelUtils.getData("emails").get("alt_email"));
+            email.attach(attach);
             email.send();
-            System.out.println("Mail Sent Successfully");
+            LoggerConfig.getLogger().info("Mail Sent Successfully");
         } catch (EmailException e) {
-            System.out.println("Mail could NOT be sent");
-            e.printStackTrace();
+            LoggerConfig.setLogger(e.getLocalizedMessage());
         }
     }
 

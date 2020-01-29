@@ -8,15 +8,17 @@
         <parameter name="browser" value="Chrome"></parameter>
         <groups>
             <run>
-                <include name="login.*"/>
+                <exclude name="login.*"/>
                 <include name="links.*"/>
-                <include name="privacy.*"/>
+                <exclude name="privacy.*"/>
+                <exclude name="listing.*"/>
             </run>
         </groups>
         <classes>
             <class name="com.thrive.regression.LoginFeature"/>
             <class name="com.thrive.regression.VerifyLinks"/>
             <class name="com.thrive.regression.PrivacyPolicy"/>
+            <class name="com.thrive.regression.ListingPage"/>
         </classes>
     </test> <!-- Test -->
 </suite> <!-- Suite -->

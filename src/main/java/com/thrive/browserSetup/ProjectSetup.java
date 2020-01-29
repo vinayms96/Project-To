@@ -2,6 +2,7 @@ package com.thrive.browserSetup;
 
 import com.aventstack.extentreports.Status;
 import com.thrive.logger.LoggerConfig;
+import com.thrive.mailing.StatusMailing;
 import com.thrive.modules.DateFunc;
 import com.thrive.reportSetup.ExtentReports;
 import com.thrive.utils.Auto_constant;
@@ -42,8 +43,8 @@ public class ProjectSetup implements Auto_constant {
     @BeforeMethod(description = "Checking the browser and launching it", alwaysRun = true)
     @Parameters({"browser"})
     public void openBrowser(String browser) {
-        ProjectSetup.extBrowser = System.getProperty("browser");
-//        ProjectSetup.extBrowser = browser;
+//        ProjectSetup.extBrowser = System.getProperty("browser");
+        ProjectSetup.extBrowser = browser;
 
         // Setting the logger
         LoggerConfig.setLogger(getClass().getName());
@@ -73,13 +74,11 @@ public class ProjectSetup implements Auto_constant {
          * This assigns the browser driver to use for the extent reports for setting
          * child node
          */
-//        if (browser.equalsIgnoreCase("Chrome")) {
         if (System.getProperty("browser").equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().arch64().setup();
             driver = new ChromeDriver(chOptions);
             LoggerConfig.getLogger().info("Chrome Browser is invoked");
         }
-//            else if (browser.equalsIgnoreCase("Firefox")) {
         else if (System.getProperty("browser").equalsIgnoreCase("Firefox")) {
             WebDriverManager.firefoxdriver().arch64().setup();
             driver = new FirefoxDriver(fiOptions);
@@ -108,23 +107,9 @@ public class ProjectSetup implements Auto_constant {
             LoggerConfig.getLogger().info(result.getThrowable());
         }
 
-        // Extent reports will be flushed only if extent reports are On
-        // So Reports will be generated only if extent is flushed
-        if (Property.getProperty("extent").equalsIgnoreCase("On")) {
-            ExtentReports.getExtent().flush();
-            LoggerConfig.getLogger().info("Extent Report is generated");
-        }
         // Quits/Closes all the browser instances
         driver.quit();
         LoggerConfig.getLogger().info("Browser instance is Closed");
-    }
-
-    @AfterSuite
-    public void sendMails() {
-        if (Property.getProperty("extent").equalsIgnoreCase("on")) {
-//            StatusMailing.report_mail();
-//			statusMailing.fail_msg_mail();
-        }
     }
 
 }

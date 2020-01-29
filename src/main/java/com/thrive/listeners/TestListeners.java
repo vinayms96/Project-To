@@ -2,6 +2,7 @@ package com.thrive.listeners;
 
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.thrive.logger.LoggerConfig;
+import com.thrive.mailing.StatusMailing;
 import com.thrive.reportSetup.ExtentReports;
 import com.thrive.screenshot.Screenshot;
 import com.thrive.utils.Property;
@@ -47,8 +48,8 @@ public class TestListeners implements ITestListener {
     @Override
     public void onTestSkipped(ITestResult result) {
         ITestListener.super.onTestSkipped(result);
-		// Setting the logger
-		LoggerConfig.setLogger(getClass().getName());
+        // Setting the logger
+        LoggerConfig.setLogger(getClass().getName());
 
         ExtentReports.getChildTest().skip("The Test Case '" + result.getName() + "' has Skipped");
 
@@ -63,18 +64,24 @@ public class TestListeners implements ITestListener {
 
     @Override
     public void onTestFailedWithTimeout(ITestResult result) {
-    	ITestListener.super.onTestFailedWithTimeout(result);
+        ITestListener.super.onTestFailedWithTimeout(result);
     }
 
     @Override
     public void onStart(ITestContext context) {
-    	ITestListener.super.onStart(context);
+        ITestListener.super.onStart(context);
     }
 
     @Override
     public void onFinish(ITestContext context) {
         ITestListener.super.onFinish(context);
-//		extentReports.extTest.pass("The Test Case '" + context.getName() + "' execution has Stopped");
+        // Extent reports will be flushed only if extent reports are On
+        // So Reports will be generated only if extent is flushed
+        if (Property.getProperty("extent").equalsIgnoreCase("On")) {
+            ExtentReports.getExtent().flush();
+            LoggerConfig.getLogger().info("Extent Report is generated");
+        }
+        StatusMailing.report_mail();
     }
 
 }
