@@ -16,11 +16,26 @@ public class VerifyLinks extends ProjectSetup {
         home_page hp = new home_page(driver);
 
         // Created Extent Test reference and Logger is set
-        ExtentReports.setExtentTest("Verify Links");
+        ExtentReports.setExtentTest("Verifying Menu Links");
         LoggerConfig.setLogger(getClass().getName());
 
         // Calling the homepage methods
         hp.check_menu_links();
+
+    }
+
+    @Test(description = "Verifying the Footer Links", groups = {"links.footer"})
+    public void footer_links(){
+
+        // Page Object references
+        home_page home = new home_page(driver);
+
+        // Created Extent Test reference and Logger is set
+        ExtentReports.setExtentTest("Verifying Footer Links");
+        LoggerConfig.setLogger(getClass().getName());
+
+        // Calling the Page Objects
+        home.foot_link_check();
 
     }
 
