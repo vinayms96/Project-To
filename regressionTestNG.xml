@@ -8,10 +8,10 @@
         <parameter name="browser" value="Chrome"></parameter>
         <groups>
             <run>
-                <exclude name="login.*"/>
+                <include name="login.*"/>
                 <include name="links.*"/>
-                <exclude name="privacy.*"/>
-                <exclude name="listing.*"/>
+                <include name="privacy.*"/>
+                <include name="listing.*"/>
             </run>
         </groups>
         <classes>
