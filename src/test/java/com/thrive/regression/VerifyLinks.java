@@ -2,15 +2,14 @@ package com.thrive.regression;
 
 import com.thrive.browserSetup.ProjectSetup;
 import com.thrive.logger.LoggerConfig;
+import com.thrive.pageModels.home_page;
 import com.thrive.reportSetup.ExtentReports;
 import org.testng.annotations.Test;
-
-import com.thrive.pageModels.home_page;
 
 public class VerifyLinks extends ProjectSetup {
 
     @Test(description = "Verifying the links redirection", groups = {"links.menu"})
-    public void verifyAllLinks() {
+    public void verifyAllLinks() throws InterruptedException {
 
         // Page object references
         home_page hp = new home_page(driver);
@@ -25,7 +24,7 @@ public class VerifyLinks extends ProjectSetup {
     }
 
     @Test(description = "Verifying the Footer Links", groups = {"links.footer"})
-    public void footer_links(){
+    public void footer_links() throws InterruptedException {
 
         // Page Object references
         home_page home = new home_page(driver);

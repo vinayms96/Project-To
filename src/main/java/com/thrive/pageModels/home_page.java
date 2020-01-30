@@ -67,7 +67,8 @@ public class home_page extends ProjectSetup {
     /*
      * Click on Menu links and check if they are redirecting to correct pages
      */
-    public void check_menu_links() {
+    public void check_menu_links() throws InterruptedException {
+        int count = 0;
 
         // Declaring ArrayList
         menus = new ArrayList<>();
@@ -90,28 +91,45 @@ public class home_page extends ProjectSetup {
 //                ExtentReports.getChildTest().fail("Link: " + element.getAttribute("href") + " -> is Corrupted");
 //            }
         }
+
+        //Deliberately pausing test for 1 sec for Firefox
+        Thread.sleep(1000);
+
         // Switch to all the tabs and verify the Pages
         Set<String> windows = driver.getWindowHandles();
         Iterator<String> wind = windows.iterator();
         String parent = wind.next();
-        int count = menus.size();
+
+        if (System.getProperty("browser").equalsIgnoreCase("chrome")) {
+            count = menus.size();
+            count -= 1;
+        }
+
         while (wind.hasNext()) {
             try {
                 // Switches to next window
                 driver.switchTo().window(wind.next());
-                Assert.assertEquals(pageTitle.getAttribute("content"), menus.get(count - 1));
+                Assert.assertEquals(pageTitle.getAttribute("content"), menus.get(count));
 
                 // Result printed to Extent reports and logged
-                ExtentReports.getChildTest().pass("Menu link is redirected to " + menus.get(count - 1) + " page");
-                LoggerConfig.getLogger().info("Menu link is redirected to " + menus.get(count - 1) + " page");
+                ExtentReports.getChildTest().pass("Menu link is redirected to " + menus.get(count) + " page");
+                LoggerConfig.getLogger().info("Menu link is redirected to " + menus.get(count) + " page");
 
                 // Closes each of the open tabs
                 driver.close();
-                count--;
+                if (System.getProperty("browser").equalsIgnoreCase("chrome")) {
+                    count--;
+                } else {
+                    count++;
+                }
             } catch (Exception e) {
                 ExtentReports.getChildTest().error(e.getLocalizedMessage());
                 LoggerConfig.getLogger().error(e.getLocalizedMessage());
-                count--;
+                if (System.getProperty("browser").equalsIgnoreCase("chrome")) {
+                    count--;
+                } else {
+                    count++;
+                }
             }
         }
         // Switches back to the Parent tab
@@ -123,7 +141,8 @@ public class home_page extends ProjectSetup {
     /*
      * Iterate through footer links and verifying the links
      */
-    public void foot_link_check() {
+    public void foot_link_check() throws InterruptedException {
+        int count = 0;
         JavascriptExecutor js = (JavascriptExecutor) driver;
         foot_names = new ArrayList<>();
 
@@ -139,21 +158,26 @@ public class home_page extends ProjectSetup {
         while (columns.hasNext()) {
             List<WebElement> links = columns.next().findElements(By.tagName("li"));
             Iterator<WebElement> foot_links = links.iterator();
-            System.out.println(links.size());
 
             // Iterate through the links in the particular column
             while (foot_links.hasNext()) {
                 WebElement ele = foot_links.next().findElement(By.tagName("a"));
-                System.out.println(ele.getText());
                 foot_names.add(ele.getText());
                 Action.clickOpenTab(ele);
             }
+
+            //Deliberately pausing test for 1 sec for Firefox
+            Thread.sleep(1000);
 
             // Get all the Browser window handles
             Set<String> windows = driver.getWindowHandles();
             Iterator<String> wind = windows.iterator();
             String parent = wind.next();
-            int count = links.size();
+
+            if (System.getProperty("browser").equalsIgnoreCase("chrome")) {
+                count = links.size();
+                count -= 1;
+            }
 
             // Iterate through all the Browser window handles
             while (wind.hasNext()) {
@@ -165,13 +189,13 @@ public class home_page extends ProjectSetup {
                     String page_title = pageTitle.getAttribute("content");
 
                     // Checking if user is redirected to Proper page
-                    switch (foot_names.get(count - 1)) {
+                    switch (foot_names.get(count)) {
                         case "FAQ":
                         case "Search Terms":
-                            Assert.assertTrue(page_title.contains(foot_names.get(count - 1)));
+                            Assert.assertTrue(page_title.contains(foot_names.get(count)));
                             break;
                         default:
-                            Assert.assertEquals(page_title, foot_names.get(count - 1));
+                            Assert.assertEquals(page_title, foot_names.get(count));
                     }
 
                     // Logging to Extent Reports and Logger
@@ -181,11 +205,19 @@ public class home_page extends ProjectSetup {
                     // Close each browser after verifying
                     driver.close();
                     LoggerConfig.getLogger().info("'" + page_title + "' Window closed");
-                    count--;
+                    if (System.getProperty("browser").equalsIgnoreCase("chrome")) {
+                        count--;
+                    } else {
+                        count++;
+                    }
                 } catch (Exception e) {
                     ExtentReports.getChildTest().error(e.getLocalizedMessage());
                     LoggerConfig.getLogger().error(e.getLocalizedMessage());
-                    count--;
+                    if (System.getProperty("browser").equalsIgnoreCase("chrome")) {
+                        count--;
+                    } else {
+                        count++;
+                    }
                 }
             }
             // Switch to Parent window after all the windows are closed
