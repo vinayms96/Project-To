@@ -2,7 +2,6 @@ package com.thrive.browserSetup;
 
 import com.aventstack.extentreports.Status;
 import com.thrive.logger.LoggerConfig;
-import com.thrive.mailing.StatusMailing;
 import com.thrive.modules.DateFunc;
 import com.thrive.reportSetup.ExtentReports;
 import com.thrive.utils.Auto_constant;
@@ -17,7 +16,10 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestResult;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
 
 import java.util.concurrent.TimeUnit;
 
@@ -78,8 +80,7 @@ public class ProjectSetup implements Auto_constant {
             WebDriverManager.chromedriver().arch64().setup();
             driver = new ChromeDriver(chOptions);
             LoggerConfig.getLogger().info("Chrome Browser is invoked");
-        }
-        else if (System.getProperty("browser").equalsIgnoreCase("Firefox")) {
+        } else if (System.getProperty("browser").equalsIgnoreCase("Firefox")) {
             WebDriverManager.firefoxdriver().arch64().setup();
             driver = new FirefoxDriver(fiOptions);
             LoggerConfig.getLogger().info("Firefox Browser is invoked");
@@ -93,7 +94,7 @@ public class ProjectSetup implements Auto_constant {
     }
 
     @AfterMethod(description = "Results to append in Reports at the end of test", alwaysRun = true)
-    public void tearDown(ITestResult result) {
+    public void printStatus(ITestResult result) {
         // Setting the logger
         LoggerConfig.setLogger(getClass().getName());
 
@@ -106,7 +107,6 @@ public class ProjectSetup implements Auto_constant {
             ExtentReports.getChildTest().log(Status.SKIP, "Test Case Skipped is " + result.getName());
             LoggerConfig.getLogger().info(result.getThrowable());
         }
-
         // Quits/Closes all the browser instances
         driver.quit();
         LoggerConfig.getLogger().info("Browser instance is Closed");

@@ -1,11 +1,13 @@
 package com.thrive.pageModels;
 
+import com.thrive.browserSetup.ProjectSetup;
 import com.thrive.logger.LoggerConfig;
 import com.thrive.modules.Action;
 import com.thrive.modules.RandomPicker;
 import com.thrive.modules.WaitUntil;
 import com.thrive.reportSetup.ExtentReports;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,7 +16,9 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.Iterator;
 import java.util.List;
 
-public class listing_page {
+public class listing_page extends ProjectSetup {
+
+    private JavascriptExecutor js = (JavascriptExecutor)driver;
 
     // Page Elements
     @FindBy(xpath = "//div[@id='ninjamenus4']/div/div")
@@ -75,8 +79,11 @@ public class listing_page {
         WaitUntil.waitVisibleAll(5, products_list);
 
         // Getting the Product name and Click on random product
-        WebElement ele = products_list.get(RandomPicker.random_prod(products_list.size()));
+        System.out.println(products_list.size());
+        System.out.println(RandomPicker.random_num(products_list.size()));
+        WebElement ele = products_list.get(RandomPicker.random_num(products_list.size()));
         String prod_name = ele.findElement(By.xpath("//strong/a")).getText();
+        js.executeScript("arguments[0].scrollIntoView();", ele.findElement(By.xpath("//strong/a")));
         Action.moveClick(ele.findElement(By.xpath("//strong/a")));
         LoggerConfig.getLogger().info("Clicked on '" + prod_name + "'");
 

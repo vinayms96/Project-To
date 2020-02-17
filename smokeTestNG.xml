@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite" verbose="2" parallel="none">
+    <listeners>
+        <listener class-name="com.thrive.listeners.TestListeners"></listener>
+    </listeners>
+    <test thread-count="5" name="Chrome">
+        <parameter name="browser" value="Chrome"></parameter>
+        <groups>
+            <run>
+                <include name="login.*"/>
+                <exclude name="links.*r"/>
+                <exclude name="privacy.*"/>
+                <include name="listing.*"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.thrive.regression.LoginFeature"/>
+            <class name="com.thrive.regression.VerifyLinks"/>
+            <class name="com.thrive.regression.PrivacyPolicy"/>
+            <class name="com.thrive.regression.ListingPage"/>
+        </classes>
+    </test> <!-- Test -->
+</suite> <!-- Suite -->

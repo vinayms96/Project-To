@@ -80,8 +80,13 @@ public class TestListeners implements ITestListener {
         if (Property.getProperty("extent").equalsIgnoreCase("On")) {
             ExtentReports.getExtent().flush();
             LoggerConfig.getLogger().info("Extent Report is generated");
+
+            // Send mails only if set to Yes
+            if (System.getProperty("mail").equalsIgnoreCase("Yes")) {
+                StatusMailing.report_mail();
+            }
         }
-        StatusMailing.report_mail();
+
     }
 
 }

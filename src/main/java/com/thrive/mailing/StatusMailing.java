@@ -1,6 +1,5 @@
 package com.thrive.mailing;
 
-import com.thrive.funcInterfaces.logs;
 import com.thrive.logger.LoggerConfig;
 import com.thrive.reportSetup.ExtentReports;
 import com.thrive.utils.ExcelUtils;

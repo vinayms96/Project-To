@@ -17,7 +17,7 @@ public class RandomPicker {
         return randomizer(firstName) + "@" + randomizer(domain) + ".com";
     }
 
-    public static int random_prod(int size){
+    public static int random_num(int size){
         return rand.nextInt(size);
     }
 

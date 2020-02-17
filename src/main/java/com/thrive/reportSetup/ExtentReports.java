@@ -30,7 +30,7 @@ public class ExtentReports extends ProjectSetup implements Auto_constant {
 		reporter = new ExtentHtmlReporter(reportPath);
 		reporter.config().setCSS(".r-img { width: 30%; }");
 		reporter.config().setDocumentTitle("Automation Test Report");
-		reporter.config().setReportName("TO Test Report");
+		reporter.config().setReportName("ThriveOn Test Report");
 		reporter.config().setTheme(Theme.DARK);
 
 		extent.attachReporter(reporter);

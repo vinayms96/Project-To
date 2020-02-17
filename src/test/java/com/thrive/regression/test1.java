@@ -1,5 +1,7 @@
 package com.thrive.regression;
 
+import com.thrive.mailing.StatusMailing;
+import com.thrive.modules.RandomPicker;
 import com.thrive.utils.Auto_constant;
 import com.thrive.utils.ExcelUtils;
 import com.thrive.utils.Property;
@@ -19,10 +21,14 @@ public class test1 implements Auto_constant {
 //			System.out.println(DatabaseSetup.data.get(i));
 //		}
 //		db.closeDB();
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://codilar:test@thrive-test.codilar.in");
-        System.out.println(driver.getCurrentUrl());
+//        WebDriverManager.chromedriver().setup();
+//        WebDriver driver = new ChromeDriver();
+//        driver.get("https://codilar:test@thrive-test.codilar.in");
+//        System.out.println(driver.getCurrentUrl());
+//        ExcelUtils.get_keys();
+//        StatusMailing.report_mail();
+
+        System.out.println(RandomPicker.random_num(6));
 
     }
 
